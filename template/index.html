@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Amazona</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="./images/favicon.png" />
+  </head>
+  <body>
+    <div class="grid-container">
+      <button class="sidebar-menu">&#9776;</button>
+      <header class="header">
+        <div class="brand">
+          <a class="brand-link" href="./index.html">amazona</a>
+        </div>
+        <div>
+          <a class="header-link" href="./cart.html">Cart</a>
+          <a class="header-link" href="./signin.html">Sign in</a>
+        </div>
+      </header>
+      <aside class="sidebar">
+        <ul class="categories">
+          <li>
+            <h4>SHOP BY CATEGORY</h4>
+            <button class="sidebar-menu-close">x</button>
+          </li>
+          <li>
+            <a href="./category.html">Dress Shirts</a>
+          </li>
+          <li>
+            <a href="./category.html"> Casual Shirts</a>
+          </li>
+          <li>
+            <a href="./category.html"> T-Shirt</a>
+          </li>
+          <li>
+            <a href="./category.html"> Pants</a>
+          </li>
+          <li>
+            <a href="./category.html"> Shoes </a>
+          </li>
+        </ul>
+      </aside>
+      <main class="main">
+        <ul class="products">
+          <li>
+            <div class="product">
+              <div class="product-image">
+                <a href="./details.html">
+                  <img src="./images/d1.jpg" alt="image"
+                /></a>
+              </div>
+              <div class="product-name">
+                <a href="./details.html"> Oxford Shoes</a>
+              </div>
+              <div class="product-brand">by Oxford</div>
+              <div class="product-price">$340</div>
+              <div class="product-rating">4.5 stars (1,234)</div>
+            </div>
+          </li>
+          <li>
+            <div class="product">
+              <div class="product-image">
+                <a href="./details.html">
+                  <img src="./images/d2.jpg" alt="image"
+                /></a>
+              </div>
+              <div class="product-name">
+                <a href="./details.html"> Oxford Shoes</a>
+              </div>
+              <div class="product-brand">by Oxford</div>
+              <div class="product-price">$340</div>
+              <div class="product-rating">4.5 stars (1,234)</div>
+            </div>
+          </li>
+          <li>
+            <div class="product">
+              <div class="product-image">
+                <a href="./details.html">
+                  <img src="./images/d3.jpg" alt="image"
+                /></a>
+              </div>
+              <div class="product-name">
+                <a href="./details.html"> Oxford Shoes</a>
+              </div>
+              <div class="product-brand">by Oxford</div>
+              <div class="product-price">$340</div>
+              <div class="product-rating">4.5 stars (1,234)</div>
+            </div>
+          </li>
+          <li>
+            <div class="product">
+              <div class="product-image">
+                <a href="./details.html">
+                  <img src="./images/p1.jpg" alt="image"
+                /></a>
+              </div>
+              <div class="product-name">
+                <a href="./details.html"> Oxford Shoes</a>
+              </div>
+              <div class="product-brand">by Oxford</div>
+              <div class="product-price">$340</div>
+              <div class="product-rating">4.5 stars (1,234)</div>
+            </div>
+          </li>
+          <li>
+            <div class="product">
+              <div class="product-image">
+                <a href="./details.html">
+                  <img src="./images/p2.jpg" alt="image"
+                /></a>
+              </div>
+              <div class="product-name">
+                <a href="./details.html"> Oxford Shoes</a>
+              </div>
+              <div class="product-brand">by Oxford</div>
+              <div class="product-price">$340</div>
+              <div class="product-rating">4.5 stars (1,234)</div>
+            </div>
+          </li>
+          <li>
+            <div class="product">
+              <div class="product-image">
+                <a href="./details.html">
+                  <img src="./images/p3.jpg" alt="image"
+                /></a>
+              </div>
+              <div class="product-name">
+                <a href="./details.html"> Oxford Shoes</a>
+              </div>
+              <div class="product-brand">by Oxford</div>
+              <div class="product-price">$340</div>
+              <div class="product-rating">4.5 stars (1,234)</div>
+            </div>
+          </li>
+        </ul>
+      </main>
+      <footer class="footer">
+        All rights reserved.
+      </footer>
+    </div>
+    <script>
+      const menuElm = document.querySelector(".sidebar-menu");
+      menuElm.addEventListener("click", () => {
+        const sidebar = document.querySelector(".sidebar");
+        sidebar.classList.toggle("open");
+      });
+      const menuCloseElm = document.querySelector(".sidebar-menu-close");
+      menuCloseElm.addEventListener("click", () => {
+        const sidebar = document.querySelector(".sidebar");
+        sidebar.classList.toggle("open");
+      });
+    </script>
+  </body>
+</html>

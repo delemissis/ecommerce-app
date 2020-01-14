@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Amazona Registeration</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="grid-container">
+      <button class="sidebar-menu">&#9776;</button>
+      <header class="header">
+        <div class="brand">
+          <a class="brand-link" href="./index.html">amazona</a>
+        </div>
+        <div>
+          <a class="header-link" href="./cart.html">Cart</a>
+          <a class="header-link" href="./signin.html">Sign in</a>
+        </div>
+      </header>
+      <aside class="sidebar">
+        <ul class="categories">
+          <li>
+            <h4>SHOP BY CATEGORY</h4>
+            <button class="sidebar-menu-close">x</button>
+          </li>
+          <li>
+            <a href="./category.html">Dress Shirts</a>
+          </li>
+          <li>
+            <a href="./category.html"> Casual Shirts</a>
+          </li>
+          <li>
+            <a href="./category.html"> T-Shirt</a>
+          </li>
+          <li>
+            <a href="./category.html"> Pants</a>
+          </li>
+          <li>
+            <a href="./category.html"> Shoes </a>
+          </li>
+        </ul>
+      </aside>
+      <main class="main">
+        <div class="form">
+          <form action="/api/signin">
+            <ul class="form-container">
+              <li><h2>Create account</h2></li>
+              <li>
+                <label for="fullname">Name </label>
+                <input type="text" name="fullname" id="fullname" />
+              </li>
+              <li>
+                <label for="email">Email </label>
+                <input type="email" name="email" id="email" />
+              </li>
+              <li>
+                <label for="password">Password </label>
+                <input type="password" name="password" id="password" />
+              </li>
+              <li>
+                <label for="password">Re-enter password </label>
+                <input type="password" name="password" id="password" />
+              </li>
+              <li>
+                <button class="button primary">
+                  Create your Amazona Account
+                </button>
+              </li>
+              <li>
+                Already have an account? &nbsp;
+                <a class="normal-width" href="./signin.html"> Sign-in</a>
+              </li>
+            </ul>
+          </form>
+        </div>
+      </main>
+      <footer class="footer">
+        All rights reserved.
+      </footer>
+    </div>
+    <script>
+      const menuElm = document.querySelector(".sidebar-menu");
+      menuElm.addEventListener("click", () => {
+        const sidebar = document.querySelector(".sidebar");
+        sidebar.classList.toggle("open");
+      });
+      const menuCloseElm = document.querySelector(".sidebar-menu-close");
+      menuCloseElm.addEventListener("click", () => {
+        const sidebar = document.querySelector(".sidebar");
+        sidebar.classList.toggle("open");
+      });
+    </script>
+  </body>
+</html>
