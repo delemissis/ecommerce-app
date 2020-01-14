@@ -246,15 +246,15 @@ a:hover {
   width: 100%;
 }
 .details-image {
-  flex: 2 0  50rem;
+  flex: 2 1  50rem;
 }
 .details-info {
-  flex: 1 0 25rem;  
+  flex: 1 1 25rem;  
   padding: 1rem;
   margin: 1rem;
 }
 .details-actions {
-  flex: 1 0 25rem;
+  flex: 1 1 25rem;
   border: 1px #e0e0e0 solid;
   padding: 1rem;
   margin: 1rem;

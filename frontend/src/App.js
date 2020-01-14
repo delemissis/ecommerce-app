@@ -81,7 +81,7 @@ function App() {
                   </li>
                 ) : categories.map((x) => (
                   <li key={x._id}>
-                    <a href={`/categories/${x.name}`}>{x.name}</a>
+                    <Link onClick={closeSidebar} to={`/categories/${x.name}`}>{x.name}</Link>
                   </li>
                 ))}
           </ul>

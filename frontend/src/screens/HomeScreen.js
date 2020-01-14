@@ -14,7 +14,7 @@ function HomeScreen(props) {
     return () => {
       //
     };
-  }, [dispatch]);
+  }, [dispatch, category]);
   const { loading, products, error } = productList;
   return loading
     ? <LoadingBox /> : error ? <ErrorBox message={error} />
