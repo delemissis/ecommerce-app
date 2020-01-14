@@ -119,13 +119,14 @@ a:hover {
   font-weight: bold;
 }
 .brand {
-  margin-left: 1rem;
+  margin-left: 0.5rem;
 }
 .brand button {
   color: #ffffff;
   background: none;
   border: none;
   font-size: 3rem;
+  padding: 0.5rem;
 }
 
 .brand a {
