@@ -236,24 +236,25 @@ a:hover {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  flex-wrap: wrap;
-  width: 100%;
+  flex-wrap: wrap; 
 }
 .back-to-results {
   padding: 1rem;
 }
 .details-image > img {
   max-width: 55rem;
+  width: 100%;
 }
 .details-image {
-  flex: 2 1 20rem;
+  flex: 2 0  50rem;
 }
 .details-info {
-  flex: 1 1 10rem;
+  flex: 1 0 25rem;  
+  padding: 1rem;
+  margin: 1rem;
 }
 .details-actions {
-  flex: 1 1 10rem;
-
+  flex: 1 0 25rem;
   border: 1px #e0e0e0 solid;
   padding: 1rem;
   margin: 1rem;
