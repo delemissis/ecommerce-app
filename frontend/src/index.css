@@ -1,5 +1,6 @@
 html {
   font-size: 62.5%; /* Default font size: 16px * 62.5% = 10px = 1rem */
+  box-sizing:border-box;
 }
 body {
   margin: 0;
@@ -66,22 +67,17 @@ a:hover {
   flex-direction: column;
   border: 1px #c0c0c0 solid;
   border-radius: 0.5rem;
-  width: 35rem;
+  width: 33rem;
   padding: 2rem;
   list-style-type: none;
 }
 .form-container > li {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  flex-direction: column;
   margin-bottom: 2rem;
-}
-.form-container > li > label {
-  flex: 1 1 10rem;
 }
 
 .form-container input {
-  flex: 2 1 20rem;
   padding: 1rem;
   border-radius: 0.5rem;
   border: 1px #c0c0c0 solid;
@@ -94,6 +90,7 @@ a:hover {
   padding: 1rem;
   text-align: center;
 }
+/* Grid */
 .grid-container {
   display: grid;
   height: 100vh;
@@ -160,7 +157,9 @@ a:hover {
   transform: translateX(0);
 }
 .sidebar-menu-close{
-  border-radius: 50%;  
+  border-radius: 1.5rem;
+  width: 3rem;
+  height: 3rem;
 }
 /* Categories */
 .categories{

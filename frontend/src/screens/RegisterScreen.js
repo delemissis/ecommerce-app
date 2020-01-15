@@ -91,15 +91,18 @@ function RegisterScreen(props) {
             />
           </li>
           <li>
-            <button type="submit" className="button primary full-width">Create your Amazona account</button>
+            <button type="submit" className="button primary">Create your Amazona account</button>
           </li>
 
           <li>
-            Already have an account?
-             &nbsp;
-            <Link to={redirect === '/' ? '/signin' : `/signin?redirect=${redirect}`}>
-              Sign-In
-            </Link>
+            <div>
+              Already have an account?
+               &nbsp;
+              <Link to={redirect === '/' ? '/signin' : `/signin?redirect=${redirect}`}>
+                Sign-In
+              </Link>
+
+            </div>
 
           </li>
         </ul>
