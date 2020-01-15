@@ -157,9 +157,16 @@ a:hover {
   transform: translateX(0);
 }
 .sidebar-menu-close{
-  border-radius: 1.5rem;
-  width: 3rem;
+  padding: 0;
+  background-color: #CCC;
+  border: 2px solid #000;
+  border-radius: 50%;
   height: 3rem;
+  width: 3rem;
+  overflow: hidden;  
+  display: block;
+  cursor: pointer;
+  -webkit-appearance: none;
 }
 /* Categories */
 .categories{
