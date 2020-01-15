@@ -5,10 +5,6 @@ import LoadingBox from '../components/LoadingBox';
 import ErrorBox from '../components/ErrorBox';
 import { listProducts } from '../actions/productActions';
 
-const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
-console.log(API_KEY);
-const mongodbUrl = process.env.REACT_APP_WEATHER_API_KEY || 'mongodb://localhost/amazona';
-console.log(mongodbUrl);
 function HomeScreen(props) {
   const category = props.match.params.id;
   const dispatch = useDispatch();

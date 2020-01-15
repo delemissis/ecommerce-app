@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import Axios from 'axios';
 
 const PaypalButton = (props) => {
   const [sdkReady, setSdkReady] = useState(false);
 
-  const addPaypalSdk = () => {
-    const clientID = process.env.PAYPAL_CLIENT_ID || 'sb';
+  const addPaypalSdk = async () => {
+    const result = await Axios.get('/api/config/paypal');
+    const clientID = result.data;
     const script = document.createElement('script');
     script.type = 'text/javascript';
     script.src = `https://www.paypal.com/sdk/js?client-id=${clientID}`;

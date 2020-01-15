@@ -2,9 +2,12 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import path from 'path';
+import dotenv from 'dotenv';
 import userRoute from './routes/userRoute';
 import categoryRoute from './routes/categoryRoute';
 import productRoute from './routes/productRoute';
+
+dotenv.config();
 
 const mongodbUrl = process.env.MONGODB_URL || 'mongodb://localhost/amazona';
 const port = process.env.PORT || 5000;
@@ -32,6 +35,10 @@ app.use(bodyParser.json());
 app.use('/api/products', productRoute);
 app.use('/api/categories', categoryRoute);
 app.use('/api/users', userRoute);
+
+app.get('/api/config/paypal', (req, res) => {
+  res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
+});
 
 app.use(express.static(path.join(__dirname, '/../frontend/build')));
 
