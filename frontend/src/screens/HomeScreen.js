@@ -5,6 +5,8 @@ import LoadingBox from '../components/LoadingBox';
 import ErrorBox from '../components/ErrorBox';
 import { listProducts } from '../actions/productActions';
 
+const mongodbUrl = process.env.MONGODB_URL || 'mongodb://localhost/amazona';
+console.log(mongodbUrl);
 function HomeScreen(props) {
   const category = props.match.params.id;
   const dispatch = useDispatch();

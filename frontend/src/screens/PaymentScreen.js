@@ -9,7 +9,7 @@ function PaymentScreen(props) {
   return (
     <div>
       <CheckoutSteps step1 step2 step3 />
-      <div className="shipping">
+      <div className="form">
         <form action="/api/signin">
           <ul className="form-container">
             <li>

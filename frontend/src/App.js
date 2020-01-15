@@ -13,6 +13,7 @@ import PlacceOrderScreen from './screens/PlaceOrderScreen';
 import { listCategories } from './actions/categoryActions';
 import LoadingBox from './components/LoadingBox';
 import ErrorBox from './components/ErrorBox';
+import PaypalScreen2 from './screens/PaypalScreen2';
 
 
 function App() {
@@ -87,6 +88,7 @@ function App() {
           </ul>
         </aside>
         <main onClick={closeSidebar} className="main">
+          <Route path="/paypal" component={PaypalScreen2} />
           <Route path="/placeorder" component={PlacceOrderScreen} />
           <Route path="/payment" component={PaymentScreen} />
           <Route path="/shipping" component={ShippingScreen} />
