@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default (props) => (
+const CheckoutSteps = (props) => (
   <div className="checkout-steps">
     <div className={props.step1 ? 'active' : ''}>Sign-In</div>
     <div className={props.step2 ? 'active' : ''}>Shipping</div>
@@ -8,3 +8,4 @@ export default (props) => (
     <div className={props.step4 ? 'active' : ''}>Place Order</div>
   </div>
 );
+export default CheckoutSteps;

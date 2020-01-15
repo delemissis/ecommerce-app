@@ -93,7 +93,7 @@ function App() {
           <Route path="/signin" component={SigninScreen} />
           <Route path="/profile" component={ProfileScreen} />
           <Route path="/register" component={RegisterScreen} />
-          <Route path="/cart/:id?/:qty?" component={CartScreen} />
+          <Route path="/cart/:id?" component={CartScreen} />
           <Route path="/product/:id" component={DetailsScreen} />
           <Route path="/categories/:id" component={HomeScreen} />
           <Route path="/" exact component={HomeScreen} />

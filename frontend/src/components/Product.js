@@ -11,7 +11,8 @@ const Product = (props) => (
       </div>
       <div className="product-name">
         <Link
-         to={`/product/${props._id}`}>
+          to={`/product/${props._id}`}
+        >
           {props.name}
         </Link>
       </div>

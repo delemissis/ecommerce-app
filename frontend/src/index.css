@@ -162,9 +162,9 @@ a:hover {
   width: 3rem;
   padding: 0;
   border: 0.1rem solid #000000;
-  overflow: hidden;  
+  /* overflow: hidden;  
   display: block;
-  cursor: pointer;
+  cursor: pointer; */
 }
 /* Categories */
 .categories{
@@ -336,6 +336,10 @@ a:hover {
 }
 .cart-list-actions {
   margin-top: 1rem;
+}
+.cart-list-actions > button{
+  padding: 0.4rem 1rem;
+    font-size: 1.2rem;
 }
 .cart-image {
   flex: 1 1;

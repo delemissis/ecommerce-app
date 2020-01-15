@@ -8,7 +8,7 @@ import { detailsProduct } from '../actions/productActions';
 function DetailsScreen(props) {
   const [qty, setQty] = useState(1);
   const addToCart = () => {
-    props.history.push(`/cart/${props.match.params.id}/${qty}`);
+    props.history.push(`/cart/${props.match.params.id}?qty=${qty}`);
   };
   const dispatch = useDispatch();
 

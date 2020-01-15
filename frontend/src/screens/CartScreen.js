@@ -12,7 +12,7 @@ function CartScreen(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     if (props.match.params.id) {
-      const qty = props.match.params.qty ? Number(props.match.params.qty) : 1;
+      const qty = props.location.search ? Number(props.location.search.split('=')[1]) : 1;
       dispatch(addToCart(props.match.params.id, qty));
     }
     return () => {
@@ -53,20 +53,17 @@ function CartScreen(props) {
                   <a href={`/product/${item._id}`}>{item.name}</a>
                 </div>
                 <div className="cart-list-actions">
-                  <span>
-                    Qty:
-                    <select
-                      value={item.qty}
-                      onChange={(e) => addToCartHandler(item._id, e.target.value)}
-                    >
-                      {[...Array(item.countInStock).keys()]
-                        .map((x) => <option key={x + 1} value={x + 1}>{x + 1}</option>)}
-                    </select>
-                  </span>
-                  <span>
-                    {' '}
-                    <button type="button" className="button" onClick={() => removeFromCartHandler(item._id)}>Delete</button>
-                  </span>
+                  Qty:
+                  <select
+                    value={item.qty}
+                    onChange={(e) => addToCartHandler(item._id, e.target.value)}
+                  >
+                    {[...Array(item.countInStock).keys()]
+                      .map((x) => <option key={x + 1} value={x + 1}>{x + 1}</option>)}
+                  </select>
+                  {' '}
+                  <button type="button" className="button" onClick={() => removeFromCartHandler(item._id)}>Delete</button>
+
                 </div>
               </div>
               <div className="cart-price">
