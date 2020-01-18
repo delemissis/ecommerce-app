@@ -1,14 +1,29 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import CheckoutSteps from '../components/CheckoutSteps';
-import products from '../data';
+import { createOrder } from '../actions/orderActions';
 
 function PlacceOrderScreen(props) {
-  const handleContinue = () => {
-    props.history.push('/');
-  };
+  const dispatch = useDispatch();
 
-  const product = products.find((x) => x._id === '1');
-  const cartItems = [product];
+  const cart = useSelector((state) => state.cart);
+
+  const { cartItems, shipping, payment } = cart;
+  if (!shipping) {
+    props.history.push('/shipping');
+  }
+  if (!payment) {
+    props.history.push('/payment');
+  }
+  const itemPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
+  const shippingPrice = itemPrice > 100 ? 0 : 10;
+  const taxPrice = itemPrice * 0.15;
+  const TotalPrice = itemPrice + shippingPrice + taxPrice;
+
+  const handlePlaceOrder = () => {
+    dispatch(createOrder(cart));
+    // props.history.push('/');
+  };
   return (
     <div>
       <CheckoutSteps step1 step2 step3 step4 />
@@ -16,11 +31,24 @@ function PlacceOrderScreen(props) {
         <div className="placeorder-info">
           <div>
             <h3>Shipping Address</h3>
-            <div>1911, Sherbrook Est, Montreal, Quebec, Canada</div>
+            <div>
+              {shipping.address}
+              ,
+              {' '}
+              {shipping.city}
+              ,
+              {' '}
+              {shipping.country}
+              ,
+              {' '}
+              {shipping.postalCode}
+            </div>
           </div>
           <div>
             <h3>Payment Method</h3>
-            <div>Visa Cart (**76)</div>
+            <div>
+              {payment.paymentMethod}
+            </div>
           </div>
           <div>
             <h3>Order Items</h3>
@@ -39,24 +67,10 @@ function PlacceOrderScreen(props) {
                       <a href={`/product/${item._id}`}>{item.name}</a>
                     </div>
                     <div className="cart-list-actions">
-                      <span>
-                        Qty:
-                        <select>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                          <option>6</option>
-                          <option>7</option>
-                          <option>8</option>
-                          <option>9</option>
-                          <option>10</option>
-                        </select>
-                      </span>
-                      <span>
-                        <a href="/delete">Delete</a>
-                      </span>
+                      Qty:
+                      {' '}
+                      {item.qty}
+
                     </div>
                   </div>
                   <div className="cart-price">
@@ -71,7 +85,7 @@ function PlacceOrderScreen(props) {
         <div className="placeorder-actions">
           <ul>
             <li>
-              <button onClick={handleContinue} type="button" className="button primary full-width">
+              <button onClick={handlePlaceOrder} type="button" className="button primary full-width">
                 Place Order
               </button>
             </li>
@@ -80,15 +94,29 @@ function PlacceOrderScreen(props) {
             </li>
             <li>
               <div>Items:</div>
-              <div>$145</div>
+              <div>
+                $
+                {itemPrice}
+              </div>
             </li>
             <li>
               <div>Shipping:</div>
-              <div>$45</div>
+              <div>{shippingPrice ? `$${shippingPrice}` : 'Free'}</div>
+            </li>
+            <li>
+              <div>Tax:</div>
+              <div>
+                $
+                {taxPrice}
+              </div>
             </li>
             <li>
               <div>Order Total:</div>
-              <div>$190</div>
+              <div>
+                $
+                {TotalPrice}
+
+              </div>
             </li>
           </ul>
         </div>

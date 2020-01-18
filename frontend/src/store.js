@@ -18,7 +18,11 @@ const reducers = combineReducers({
   userUpdate: userUpdateReducer,
 });
 const initialState = {
-  cart: { cartItems: Cookies.getJSON('cartItems') || [] },
+  cart: {
+    cartItems: Cookies.getJSON('cartItems') || [],
+    shipping: { address: '1911, Sherbrooke', city: 'Montreal', country: 'Canada' },
+    payment: { paymentMethod: 'paypal' },
+  },
   userSignin: { userInfo: Cookies.getJSON('userInfo') },
 };
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
