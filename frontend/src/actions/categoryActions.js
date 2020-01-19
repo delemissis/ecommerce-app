@@ -9,7 +9,7 @@ import { getErrorMessage } from '../util';
 const listCategories = () => async (dispatch) => {
   dispatch({ type: CATEGORY_LIST_REQUEST, loading: true });
   try {
-    const result = await axios.get('/api/categories');
+    const result = await axios.get('/api/products/categories');
     dispatch({ type: CATEGORY_LIST_SUCCESS, payload: result.data });
   } catch (error) {
     dispatch({ type: CATEGORY_LIST_FAIL, payload: getErrorMessage(error) });

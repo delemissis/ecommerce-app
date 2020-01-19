@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel';
 import config from '../config';
-import { authenticated } from '../util';
+import { isAuthenticated, isAdmin } from '../util';
 
 const router = express.Router();
 
@@ -11,6 +11,7 @@ const getToken = (user) => jwt.sign(
   {
     _id: user._id,
     email: user.email,
+    isAdmin: user.isAdmin,
     name: user.name,
   },
   config.JWT_SECRET,
@@ -19,14 +20,20 @@ const getToken = (user) => jwt.sign(
   },
 );
 // List All Users
-router.get('/', authenticated, (req, res) => {
+router.get('/', isAuthenticated, isAdmin, (req, res) => {
   User.find({}, (err, categories) => {
     res.send(categories);
   });
 });
 // Update User
-router.put('/:id', asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.id);
+router.put('/:id', isAuthenticated, asyncHandler(async (req, res) => {
+  if (req.params.id !== req.user._id && !req.user.isAdmin) {
+    return res.status(401).send({
+      success: false,
+      message: 'User update has not been granted to this user.',
+    });
+  }
+  const user = await User.findById(req.user._id);
   if (user) {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
@@ -36,6 +43,7 @@ router.put('/:id', asyncHandler(async (req, res) => {
       _id: updatedUser._id,
       name: updatedUser.name,
       email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
       token: getToken(updatedUser),
     });
   } else {
@@ -54,6 +62,7 @@ router.post('/register', asyncHandler(async (req, res) => {
     _id: newUser._id,
     name: newUser.name,
     email: newUser.email,
+    isAdmin: newUser.isAdmin,
     token: getToken(newUser),
   });
 }));
@@ -70,6 +79,7 @@ router.post('/signin', asyncHandler(async (req, res) => {
     _id: signinUser._id,
     name: signinUser.name,
     email: signinUser.email,
+    isAdmin: signinUser.isAdmin,
     token: getToken(signinUser),
   });
 }));

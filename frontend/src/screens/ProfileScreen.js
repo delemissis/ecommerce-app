@@ -87,13 +87,13 @@ function ProfileScreen(props) {
             />
           </li>
           <li>
-            <button type="submit" className="button primary full-width">Update Profile</button>
+            <button type="submit" className="button primary">Update Profile</button>
           </li>
           <li>
             <button
               onClick={logoutHandler}
               type="button"
-              className="button secondary full-width text-center"
+              className="button secondary text-center"
             >
               Logout
             </button>

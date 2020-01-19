@@ -4,7 +4,6 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import dotenv from 'dotenv';
 import userRoute from './routes/userRoute';
-import categoryRoute from './routes/categoryRoute';
 import productRoute from './routes/productRoute';
 
 dotenv.config();
@@ -33,7 +32,6 @@ app.use(bodyParser.json());
 
 
 app.use('/api/products', productRoute);
-app.use('/api/categories', categoryRoute);
 app.use('/api/users', userRoute);
 
 app.get('/api/config/paypal', (req, res) => {
@@ -45,6 +43,7 @@ app.use(express.static(path.join(__dirname, '/../frontend/build')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(`${__dirname}/../frontend/build/index.html`));
 });
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   const status = err.name && err.name === 'ValidationError' ? 400 : 500;
   res.status(status);

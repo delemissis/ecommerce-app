@@ -14,6 +14,7 @@ import { listCategories } from './actions/categoryActions';
 import LoadingBox from './components/LoadingBox';
 import ErrorBox from './components/ErrorBox';
 import PaypalScreen2 from './screens/PaypalScreen2';
+import AdminProductsScreen from './screens/AdminProducts';
 
 
 function App() {
@@ -58,9 +59,17 @@ function App() {
             </Link>
             {userInfo
               ? (
-                <Link className="header-link" to="/profile">
-                  {userInfo.name}
-                </Link>
+                <>
+                  <Link className="header-link" to="/profile">
+                    {userInfo.name}
+                  </Link>
+                  {userInfo.isAdmin
+                    && (
+                      <Link className="header-link" to="/admin/products">
+                        Dashboard
+                      </Link>
+                    )}
+                </>
               )
               : <Link className="header-link" to="/signin"> Sign in </Link>}
 
@@ -98,6 +107,7 @@ function App() {
           <Route path="/cart/:id?" component={CartScreen} />
           <Route path="/product/:id" component={DetailsScreen} />
           <Route path="/categories/:id" component={HomeScreen} />
+          <Route path="/admin/products" component={AdminProductsScreen} />
           <Route path="/" exact component={HomeScreen} />
         </main>
         <footer className="footer">All rights reserved.</footer>

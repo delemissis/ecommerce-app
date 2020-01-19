@@ -1,6 +1,7 @@
 import express from 'express';
 import asyncHandler from 'express-async-handler';
 import Product from '../models/productModel';
+import { isAuthenticated, isAdmin } from '../util';
 
 const router = express.Router();
 
@@ -8,6 +9,11 @@ router.get('/', asyncHandler(async (req, res) => {
   const filter = req.query.category ? { category: req.query.category } : {};
   const products = await Product.find(filter);
   res.send(products);
+}));
+
+router.get('/categories', asyncHandler(async (req, res) => {
+  const categories = await Product.find().distinct('category');
+  res.send(categories);
 }));
 
 router.get('/:id', asyncHandler(async (req, res) => {
@@ -18,7 +24,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
     throw Error('Product not found.');
   }
 }));
-router.post('/', asyncHandler(async (req, res) => {
+router.post('/', isAuthenticated, isAdmin, asyncHandler(async (req, res) => {
   const product = new Product({
     name: req.body.name,
     price: req.body.price,
@@ -31,7 +37,7 @@ router.post('/', asyncHandler(async (req, res) => {
   const newProduct = await product.save();
   res.send({ message: 'Product Created', data: newProduct });
 }));
-router.put('/:id', asyncHandler(async (req, res) => {
+router.put('/:id', isAdmin, asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
   if (product) {
     product.name = req.body.name || product.name;
@@ -48,7 +54,7 @@ router.put('/:id', asyncHandler(async (req, res) => {
     throw Error('Product does not exist.');
   }
 }));
-router.delete('/:id', asyncHandler(async (req, res) => {
+router.delete('/:id', isAdmin, asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
   if (product) {
     const removeProduct = await product.remove();
