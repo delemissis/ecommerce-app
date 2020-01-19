@@ -2,17 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import LoadingBox from '../components/LoadingBox';
 import ErrorBox from '../components/ErrorBox';
-import { listProducts } from '../actions/productActions';
+import { listProducts, saveProduct } from '../actions/productActions';
 
 function AdminProductsScreen() {
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
+  const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [image, setImage] = useState('');
   const [price, setPrice] = useState(0);
   const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState(0);
   const showModal = (product) => {
+    setId(product.id);
     setName(product.name);
     setImage(product.image);
     setPrice(product.price);
@@ -20,8 +22,14 @@ function AdminProductsScreen() {
     setCountInStock(product.countInStock);
     setModalVisible(true);
   };
+  const deleteHandler = (product) => {
+    // dispatch(deleteProduct(product._id));
+  };
   const submitHandler = (e) => {
     e.preventDefault();
+    dispatch(saveProduct({
+      _id: id, name, image, price, category, countInStock,
+    }));
   };
   const productList = useSelector((state) => state.productList);
   useEffect(() => {
@@ -119,8 +127,8 @@ function AdminProductsScreen() {
                       {product.category}
                     </td>
                     <td>
-                      <button type="button" className="button">Edit</button>
-                      <button type="button" className="button">Delete</button>
+                      <button type="button" onClick={() => showModal(product)} className="button">Edit</button>
+                      <button type="button" onClick={() => deleteHandler(product)} className="button">Delete</button>
                     </td>
                   </tr>
                 ))}
