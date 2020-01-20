@@ -90,8 +90,8 @@ function App() {
                     There is no categories.
                   </li>
                 ) : categories.map((x) => (
-                  <li key={x._id}>
-                    <Link onClick={closeSidebar} to={`/categories/${x.name}`}>{x.name}</Link>
+                  <li key={x}>
+                    <Link onClick={closeSidebar} to={`/categories/${x}`}>{x}</Link>
                   </li>
                 ))}
           </ul>

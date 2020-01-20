@@ -9,6 +9,9 @@ import {
   PRODUCT_SAVE_REQUEST,
   PRODUCT_SAVE_SUCCESS,
   PRODUCT_SAVE_FAIL,
+  PRODUCT_DELETE_REQUEST,
+  PRODUCT_DELETE_SUCCESS,
+  PRODUCT_DELETE_FAIL,
 } from '../constants/productConstants';
 import { getErrorMessage } from '../util';
 
@@ -23,17 +26,42 @@ const listProducts = (category) => async (dispatch) => {
 };
 
 const saveProduct = (product) => async (dispatch, getState) => {
-  dispatch({ type: PRODUCT_SAVE_REQUEST });
+  dispatch({ type: PRODUCT_SAVE_REQUEST, payload: product });
   try {
     const { userSignin: { userInfo: { token } } } = getState();
-    const { data: savedProduct } = await axios.post('/api/products', product, {
+    if (product._id) {
+      const { data: savedProduct } = await axios.put(`/api/products/${product._id}`, product, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: savedProduct });
+    } else {
+      const { data: savedProduct } = await axios.post('/api/products', product, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: savedProduct });
+    }
+  } catch (error) {
+    dispatch({ type: PRODUCT_SAVE_FAIL, payload: getErrorMessage(error) });
+  }
+};
+
+const deleteProduct = (product) => async (dispatch, getState) => {
+  dispatch({ type: PRODUCT_DELETE_REQUEST, payload: product });
+  try {
+    const { userSignin: { userInfo: { token } } } = getState();
+    console.log(token);
+    const { data: deletedProduct } = await axios.delete(`/api/products/${product._id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    dispatch({ type: PRODUCT_SAVE_SUCCESS, payload: savedProduct });
+    dispatch({ type: PRODUCT_DELETE_SUCCESS, payload: deletedProduct });
   } catch (error) {
-    dispatch({ type: PRODUCT_SAVE_FAIL, payload: getErrorMessage(error) });
+    dispatch({ type: PRODUCT_DELETE_FAIL, payload: getErrorMessage(error) });
   }
 };
 
@@ -48,4 +76,6 @@ const detailsProduct = (productId) => async (dispatch) => {
   }
 };
 
-export { listProducts, detailsProduct, saveProduct };
+export {
+  listProducts, detailsProduct, saveProduct, deleteProduct,
+};

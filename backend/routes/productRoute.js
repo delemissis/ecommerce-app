@@ -37,7 +37,7 @@ router.post('/', isAuthenticated, isAdmin, asyncHandler(async (req, res) => {
   const newProduct = await product.save();
   res.send({ message: 'Product Created', data: newProduct });
 }));
-router.put('/:id', isAdmin, asyncHandler(async (req, res) => {
+router.put('/:id', isAuthenticated, isAdmin, asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
   if (product) {
     product.name = req.body.name || product.name;
@@ -54,7 +54,7 @@ router.put('/:id', isAdmin, asyncHandler(async (req, res) => {
     throw Error('Product does not exist.');
   }
 }));
-router.delete('/:id', isAdmin, asyncHandler(async (req, res) => {
+router.delete('/:id', isAuthenticated, isAdmin, asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
   if (product) {
     const removeProduct = await product.remove();

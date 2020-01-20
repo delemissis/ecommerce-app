@@ -29,6 +29,9 @@ a:hover {
   height: 100%;
   width: 100%;
 }
+.loading{
+  z-index: 10;
+}
 .full-width {
   width: 100%;
 }
@@ -54,6 +57,16 @@ a:hover {
 }
 .secondary {
   background: #f0f0f0;
+}
+table{
+  width: 100%;
+}
+th{
+  text-align: left;
+}
+tbody> tr:nth-child(odd){
+  background-color: #f0f0f0;
+
 }
 /* forms */
 .form {

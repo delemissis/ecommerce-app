@@ -4,13 +4,17 @@ import {
 import thunk from 'redux-thunk';
 import Cookies from 'js-cookie';
 import { categoryListReducer } from './reducers/categoryReducers';
-import { productListReducer, productDetailsReducer } from './reducers/productReducers';
+import {
+  productListReducer, productDetailsReducer, productSaveReducer, productDeleteReducer,
+} from './reducers/productReducers';
 import { cartReducer } from './reducers/cartRedcuers';
 import { userSigninReducer, userRegisterReducer, userUpdateReducer } from './reducers/userReducers';
 
 const reducers = combineReducers({
   cart: cartReducer,
   productList: productListReducer,
+  productSave: productSaveReducer,
+  productDelete: productDeleteReducer,
   categoryList: categoryListReducer,
   productDetails: productDetailsReducer,
   userSignin: userSigninReducer,
