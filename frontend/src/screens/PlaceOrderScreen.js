@@ -47,7 +47,7 @@ function PlacceOrderScreen(props) {
           <div>
             <h3>Payment Method</h3>
             <div>
-              {payment.paymentMethod}
+              {payment.method}
             </div>
           </div>
           <div>

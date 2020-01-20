@@ -5,6 +5,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 import userRoute from './routes/userRoute';
 import productRoute from './routes/productRoute';
+import orderRoute from './routes/orderRoute';
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ app.use(bodyParser.json());
 
 app.use('/api/products', productRoute);
 app.use('/api/users', userRoute);
+app.use('/api/orders', orderRoute);
 
 app.get('/api/config/paypal', (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
