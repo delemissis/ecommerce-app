@@ -28,7 +28,7 @@ router.post('/', isAuthenticated, asyncHandler(async (req, res) => {
   const product = new Order({
     orderItems: req.body.cartItems,
     payment: req.body.payment,
-    shippingAddress: req.body.shippingAddress,
+    shipping: req.body.shipping,
     itemPrice: req.body.itemPrice,
     shippingPrice: req.body.shippingPrice,
     totalPrice: req.body.totalPrice,

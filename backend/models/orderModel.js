@@ -7,16 +7,19 @@ const orderItemSchema = new Schema({
   product: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
 });
 const addressSchema = {
-  address: String, city: String, postalCode: String, country: String,
+  address: { type: String, required: true },
+  city: { type: String, required: true },
+  postalCode: { type: String, required: true },
+  country: { type: String, required: true },
 };
 const paymentSchema = {
-  method: { type: String, enum: ['paypal', 'creditcard'], required: true }, cardNumber: String, expireDate: String, cvv: String,
+  paymentMethod: { type: String, enum: ['paypal', 'creditcard'], required: true }, cardNumber: String, expireDate: String, cvv: String,
 };
 const orderSchema = new Schema({
   customer: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
   orderItems: [orderItemSchema],
   payment: paymentSchema,
-  shippingAddress: addressSchema,
+  shipping: addressSchema,
   itemPrice: { type: Number, required: true, min: 0 },
   shippingPrice: { type: Number, required: true, min: 0 },
   taxPrice: { type: Number, required: true, min: 0 },

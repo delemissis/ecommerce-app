@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { createOrder } from '../actions/orderActions';
@@ -7,22 +7,34 @@ function PlacceOrderScreen(props) {
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
+  const cartCreate = useSelector((state) => state.orderCreate);
 
   const { cartItems, shipping, payment } = cart;
+  const {
+    loading, success, order, error,
+  } = cartCreate;
   if (!shipping) {
     props.history.push('/shipping');
   }
   if (!payment) {
     props.history.push('/payment');
   }
-  const itemPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
-  const shippingPrice = itemPrice > 100 ? 0 : 10;
-  const taxPrice = itemPrice * 0.15;
-  const TotalPrice = itemPrice + shippingPrice + taxPrice;
+  cart.itemPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
+  cart.shippingPrice = cart.itemPrice > 100 ? 0 : 10;
+  cart.taxPrice = cart.itemPrice * 0.15;
+  cart.totalPrice = cart.itemPrice + cart.shippingPrice + cart.taxPrice;
+
+  useEffect(() => {
+    if (success) {
+      props.history.push(`/order/${order._id}`);
+    }
+    return () => {
+      //
+    };
+  }, [success]);
 
   const handlePlaceOrder = () => {
     dispatch(createOrder(cart));
-    // props.history.push('/');
   };
   return (
     <div>
@@ -47,7 +59,7 @@ function PlacceOrderScreen(props) {
           <div>
             <h3>Payment Method</h3>
             <div>
-              {payment.method}
+              {payment.paymentMethod}
             </div>
           </div>
           <div>
@@ -96,25 +108,25 @@ function PlacceOrderScreen(props) {
               <div>Items:</div>
               <div>
                 $
-                {itemPrice}
+                {cart.itemPrice}
               </div>
             </li>
             <li>
               <div>Shipping:</div>
-              <div>{shippingPrice ? `$${shippingPrice}` : 'Free'}</div>
+              <div>{cart.shippingPrice ? `$${cart.shippingPrice}` : 'Free'}</div>
             </li>
             <li>
               <div>Tax:</div>
               <div>
                 $
-                {taxPrice}
+                {cart.taxPrice}
               </div>
             </li>
             <li>
               <div>Order Total:</div>
               <div>
                 $
-                {TotalPrice}
+                {cart.totalPrice}
 
               </div>
             </li>

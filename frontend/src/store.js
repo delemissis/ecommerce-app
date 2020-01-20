@@ -24,7 +24,9 @@ const reducers = combineReducers({
 const initialState = {
   cart: {
     cartItems: Cookies.getJSON('cartItems') || [],
-    shipping: { address: '1911, Sherbrooke', city: 'Montreal', country: 'Canada' },
+    shipping: {
+      address: '1911, Sherbrooke', city: 'Montreal', country: 'Canada', postalCode: 'H2X1C4',
+    },
     payment: { paymentMethod: 'paypal' },
   },
   userSignin: { userInfo: Cookies.getJSON('userInfo') },

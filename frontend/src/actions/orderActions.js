@@ -16,7 +16,7 @@ const createOrder = (data) => async (dispatch, getState) => {
       },
     });
     dispatch({ type: ORDER_CREATE_SUCCESS, payload: order });
-    dispatch({ type: CART_EMPTY_ITEMS });
+    // dispatch({ type: CART_EMPTY_ITEMS });
     Cookies.remove('cartItems');
   } catch (error) {
     dispatch({ type: ORDER_CREATE_FAIL, payload: getErrorMessage(error) });
