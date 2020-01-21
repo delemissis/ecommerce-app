@@ -18,7 +18,7 @@ function cartReducer(state = { cartItems: [] }, action) {
     case CART_REMOVE_ITEM:
       return { cartItems: state.cartItems.filter((x) => x._id !== action.payload) };
     case CART_EMPTY_ITEMS:
-      return { cartItems: [] };
+      return { cartItems: [], shipping: {}, payment: {} };
     case CART_SAVE_SHIPPING:
       return { ...state, shipping: action.payload };
     case CART_SAVE_PAYMENT:

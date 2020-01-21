@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
+import Cookies from 'js-cookie';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { createOrder } from '../actions/orderActions';
+import { CART_EMPTY_ITEMS } from '../constants/cartConstants';
 
 function PlacceOrderScreen(props) {
   const dispatch = useDispatch();
@@ -11,7 +13,7 @@ function PlacceOrderScreen(props) {
 
   const { cartItems, shipping, payment } = cart;
   const {
-    loading, success, order, error,
+    loading, success, data: order, error,
   } = cartCreate;
   if (!shipping) {
     props.history.push('/shipping');
@@ -27,6 +29,8 @@ function PlacceOrderScreen(props) {
   useEffect(() => {
     if (success) {
       props.history.push(`/order/${order._id}`);
+      dispatch({ type: CART_EMPTY_ITEMS });
+      Cookies.remove('cartItems');
     }
     return () => {
       //
