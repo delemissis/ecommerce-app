@@ -1,6 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
 const orderItemSchema = new Schema({
+  image: { type: String, required: true },
   name: { type: String, required: true },
   price: { type: Number, required: true },
   qty: { type: Number, required: true },
@@ -16,7 +17,7 @@ const paymentSchema = {
   paymentMethod: { type: String, enum: ['paypal', 'creditcard'], required: true }, cardNumber: String, expireDate: String, cvv: String,
 };
 const orderSchema = new Schema({
-  customer: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
+  user: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
   orderItems: [orderItemSchema],
   payment: paymentSchema,
   shipping: addressSchema,

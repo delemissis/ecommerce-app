@@ -10,16 +10,7 @@ function OrderDetailsScreen(props) {
 
   const orderDetails = useSelector((state) => state.orderDetails);
 
-  const {
-    orderItems, shipping, payment, loading, error,
-  } = orderDetails;
-
-  if (!shipping) {
-    props.history.push('/shipping');
-  }
-  if (!payment) {
-    props.history.push('/payment');
-  }
+  const { loading, error, order } = orderDetails;
 
   useEffect(() => {
     dispatch(detailsOrder(props.match.params.id));
@@ -32,49 +23,56 @@ function OrderDetailsScreen(props) {
       : (
         <div>
           <div className="back-to-results">
-            <Link to="/"> ‹ Back to list</Link>
+            <Link to="/profile"> ‹ Back to list</Link>
+            <br />
+            <h3>
+            Order
+              {' '}
+              {order._id}
+            </h3>
           </div>
 
           <div className="placeorder">
+
             <div className="placeorder-info">
               <div>
                 <h3>Shipping Address</h3>
                 <div>
-                  {shipping.address}
+                  {order.shipping.address}
               ,
                   {' '}
-                  {shipping.city}
+                  {order.shipping.city}
               ,
                   {' '}
-                  {shipping.country}
+                  {order.shipping.country}
               ,
                   {' '}
-                  {shipping.postalCode}
+                  {order.shipping.postalCode}
                 </div>
               </div>
               <div>
                 <h3>Payment Method</h3>
                 <div>
-                  {payment.paymentMethod}
+                  {order.payment.paymentMethod}
                 </div>
               </div>
               <div>
                 <h3>Order Items</h3>
-                <ul className="order-list-container">
+                <ul className="cart-list-container">
                   <li>
                     <div />
                     <div>Price</div>
                   </li>
-                  {orderItems.map((item) => (
+                  {order.orderItems.map((item) => (
                     <li key={item._id}>
-                      <div className="order-image">
+                      <div className="cart-image">
                         <img src={item.image} alt="product" />
                       </div>
-                      <div className="order-name">
+                      <div className="cart-name">
                         <div>
                           <a href={`/product/${item._id}`}>{item.name}</a>
                         </div>
-                        <div className="order-list-actions">
+                        <div className="cart-list-actions">
                       Qty:
                           {' '}
                           {item.qty}

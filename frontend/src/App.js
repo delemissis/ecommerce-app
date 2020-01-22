@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import HomeScreen from './screens/HomeScreen';
 import DetailsScreen from './screens/DetailsScreen';
+import DashboardScreen from './screens/DashboardScreen';
 import OrderDetailsScreen from './screens/OrderDetailsScreen';
 import CartScreen from './screens/CartScreen';
 import ProfileScreen from './screens/ProfileScreen';
@@ -16,6 +17,7 @@ import LoadingBox from './components/LoadingBox';
 import ErrorBox from './components/ErrorBox';
 import PaypalScreen2 from './screens/PaypalScreen2';
 import AdminProductsScreen from './screens/AdminProducts';
+import AdminOrdersScreen from './screens/AdminOrders';
 
 
 function App() {
@@ -66,7 +68,7 @@ function App() {
                   </Link>
                   {userInfo.isAdmin
                     && (
-                      <Link className="header-link" to="/admin/products">
+                      <Link className="header-link" to="/dashboard">
                         Dashboard
                       </Link>
                     )}
@@ -109,7 +111,9 @@ function App() {
           <Route path="/product/:id" component={DetailsScreen} />
           <Route path="/order/:id" component={OrderDetailsScreen} />
           <Route path="/categories/:id" component={HomeScreen} />
-          <Route path="/admin/products" component={AdminProductsScreen} />
+          <Route path="/dashboard" component={DashboardScreen} />
+          <Route path="/admin-products" component={AdminProductsScreen} />
+          <Route path="/admin-orders" component={AdminOrdersScreen} />
           <Route path="/" exact component={HomeScreen} />
         </main>
         <footer className="footer">All rights reserved.</footer>

@@ -68,6 +68,9 @@ tbody> tr:nth-child(odd){
   background-color: #f0f0f0;
 
 }
+td{
+  padding: 1rem;
+}
 /* forms */
 .form {
   display: flex;
@@ -456,4 +459,16 @@ tbody> tr:nth-child(odd){
   padding: 1rem;
   margin: 1rem;
   background-color: #fcfcfc;
+}
+
+/* Profile */
+.profile{
+  display: flex;
+  flex-wrap: wrap;
+}
+.profile-info{
+  flex: 1 1 30rem;
+}
+.profile-orders{
+  flex: 3 1 60rem
 }

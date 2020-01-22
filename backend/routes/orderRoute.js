@@ -5,9 +5,13 @@ import { isAuthenticated, isAdmin } from '../util';
 
 const router = express.Router();
 
-router.get('/', asyncHandler(async (req, res) => {
-  const filter = req.query.category ? { category: req.query.category } : {};
-  const products = await Order.find(filter);
+router.get('/', isAuthenticated, isAdmin, asyncHandler(async (req, res) => {
+  const products = await Order.find({ });
+  res.send(products);
+}));
+
+router.get('/mine', isAuthenticated, asyncHandler(async (req, res) => {
+  const products = await Order.find({ user: req.user._id });
   res.send(products);
 }));
 
@@ -33,7 +37,7 @@ router.post('/', isAuthenticated, asyncHandler(async (req, res) => {
     shippingPrice: req.body.shippingPrice,
     totalPrice: req.body.totalPrice,
     taxPrice: req.body.taxPrice,
-    customer: req.user._id,
+    user: req.user._id,
   });
   const newOrder = await product.save();
   res.send({ message: 'Order Created', data: newOrder });

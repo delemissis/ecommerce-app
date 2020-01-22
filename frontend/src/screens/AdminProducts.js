@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import LoadingBox from '../components/LoadingBox';
 import ErrorBox from '../components/ErrorBox';
 import { listProducts, saveProduct, deleteProduct } from '../actions/productActions';
@@ -54,7 +55,13 @@ function AdminProductsScreen() {
   return loading
     ? <LoadingBox /> : error ? <ErrorBox message={error} /> : (
       <div className="content content-margined">
-        <h2>Products</h2>
+        <div>
+          <Link to="/dashboard">‹ Back to dashboard</Link>
+          <br />
+          <h3>
+          Products
+          </h3>
+        </div>
         {modalVisible
           && (
             <div className="modal">
