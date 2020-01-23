@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', asyncHandler(async (req, res) => {
   const filter = req.query.category ? { category: req.query.category } : {};
-  const products = await Product.find(filter);
+  const products = await Product.find(filter).sort({ _id: -1 });
   res.send(products);
 }));
 
