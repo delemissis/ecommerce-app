@@ -18,10 +18,16 @@ const signin = (email, password) => async (dispatch) => {
   }
 };
 
-const update = (userId, name, email, password) => async (dispatch) => {
+const update = (userId, name, email, password) => async (dispatch, getState) => {
   try {
     dispatch({ type: USER_UPDATE_REQUEST });
-    const result = await Axios.put(`/api/users/${userId}`, { name, email, password });
+    const { userSignin: { userInfo: { token } } } = getState();
+
+    const result = await Axios.put(`/api/users/${userId}`, { name, email, password }, {
+      headers: {
+        Authorization: `Bearer ${token}`, 
+      },
+    });
     dispatch({ type: USER_UPDATE_SUCCESS, payload: result.data });
     dispatch({ type: USER_SIGNIN_SUCCESS, payload: result.data });
     Cookies.set('userInfo', JSON.stringify(result.data));

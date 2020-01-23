@@ -50,7 +50,7 @@ const PaypalButton = (props) => {
     .capture()
     .then((details) => {
       if (props.onSuccess) {
-        return props.onSuccess(data);
+        props.onSuccess(data);
       }
     })
     .catch((err) => {
@@ -83,12 +83,4 @@ const PaypalButton = (props) => {
   );
 };
 
-const ButtonP = () => (
-  <PaypalButton
-    amount="1.00"
-    onError={() => console.log('error')}
-    onSuccess={() => console.log('success')}
-    onCancel={() => console.log('cancel')}
-  />
-);
-export default ButtonP;
+export default PaypalButton;

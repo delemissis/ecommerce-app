@@ -44,25 +44,25 @@ function CartScreen(props) {
             </div>
           )}
           {cartItems.map((item) => (
-            <li key={item._id}>
+            <li key={item.product}>
               <div className="cart-image">
                 <img src={item.image} alt="product" />
               </div>
               <div className="cart-name">
                 <div>
-                  <a href={`/product/${item._id}`}>{item.name}</a>
+                  <Link href={`/product/${item.product}`}>{item.name}</Link>
                 </div>
                 <div className="cart-list-actions">
                   Qty:
                   <select
                     value={item.qty}
-                    onChange={(e) => addToCartHandler(item._id, e.target.value)}
+                    onChange={(e) => addToCartHandler(item.product, e.target.value)}
                   >
                     {[...Array(item.countInStock).keys()]
                       .map((x) => <option key={x + 1} value={x + 1}>{x + 1}</option>)}
                   </select>
                   {' '}
-                  <button type="button" className="button" onClick={() => removeFromCartHandler(item._id)}>Delete</button>
+                  <button type="button" className="button" onClick={() => removeFromCartHandler(item.product)}>Delete</button>
 
                 </div>
               </div>

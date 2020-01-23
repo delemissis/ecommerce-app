@@ -13,29 +13,22 @@ function AdminOrdersScreen() {
   };
 
   const orderList = useSelector((state) => state.orderList);
-  const orderSave = useSelector((state) => state.orderSave);
+  const orderUpdate = useSelector((state) => state.orderUpdate);
   const orderDelete = useSelector((state) => state.orderDelete);
 
   const { loading, orders, error } = orderList;
-  // const { loading: loadingDelete, success: succesDelete, error: errorDelete } = orderDelete;
+  const { loading: loadingDelete, success: successDelete, error: errorDelete } = orderDelete;
 
   useEffect(() => {
     dispatch(listOrders());
     return () => {
       //
     };
-  }, []);
+  }, [successDelete]);
   return loading
     ? <LoadingBox /> : error ? <ErrorBox message={error} /> : (
       <div className="content content-margined">
-        <div>
-          <Link to="/dashboard">‹ Back to dashboard</Link>
-          <br />
-          <h3>
-          Orders
-          </h3>
-        </div>
-
+        <h3>Orders</h3>
         {orders.length === 0 ? (
           <div className="empty-list">
             There is no orders.
@@ -46,22 +39,22 @@ function AdminOrdersScreen() {
               <thead>
                 <tr>
                   <th>
-                          ID
+                    ID
                   </th>
                   <th>
-                          DATE
+                    DATE
                   </th>
                   <th>
-                          TOTAL
+                    TOTAL
                   </th>
                   <th>
-                          PAYED?
+                    PAYED?
                   </th>
                   <th>
-                          DELIVERED?
+                    DELIVERED?
                   </th>
                   <th>
-                          ACTION
+                    ACTION
                   </th>
                 </tr>
               </thead>
@@ -78,13 +71,16 @@ function AdminOrdersScreen() {
                       {order.totalPrice}
                     </td>
                     <td>
-                      {order.isPayed}
+                      {order.isPayed.toString()}
                     </td>
                     <td>
-                      {order.isDelivered}
+                      {order.isDelivered.toString()}
                     </td>
                     <td>
-                      <Link to={`/order/${order._id}`}>Details</Link>
+                      <Link to={`/order/${order._id}?ref=/orders`}>Details</Link>
+                      {' '}
+                      <button type="button" onClick={() => deleteHandler(order)} className="button">Delete</button>
+
                     </td>
                   </tr>
                 ))}

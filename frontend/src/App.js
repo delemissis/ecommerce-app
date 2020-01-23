@@ -2,9 +2,8 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import HomeScreen from './screens/HomeScreen';
-import DetailsScreen from './screens/DetailsScreen';
-import DashboardScreen from './screens/DashboardScreen';
-import OrderDetailsScreen from './screens/OrderDetailsScreen';
+import DetailsScreen from './screens/ProductScreen';
+import OrderDetailsScreen from './screens/OrderScreen';
 import CartScreen from './screens/CartScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import SigninScreen from './screens/SigninScreen';
@@ -15,27 +14,19 @@ import PlacceOrderScreen from './screens/PlaceOrderScreen';
 import { listCategories } from './actions/categoryActions';
 import LoadingBox from './components/LoadingBox';
 import ErrorBox from './components/ErrorBox';
-import PaypalScreen2 from './screens/PaypalScreen2';
-import AdminProductsScreen from './screens/AdminProducts';
-import AdminOrdersScreen from './screens/AdminOrders';
+import PaypalScreen2 from './screens/PaypalScreen';
+import AdminProductsScreen from './screens/ProductsScreen';
+import AdminOrdersScreen from './screens/OrdersScreen';
+import PrivateRoute from './components/PrivateRoute';
 
 
 function App() {
-  // const [categories, setCategories] = useState([]);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const result = await axios('/api/categories');
-  //       setCategories(result.data);
-  //     } catch (error) {
-  //       console.log(error.message);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
   const categoryList = useSelector((state) => state.categoryList);
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
+  window.isAuth = !!userInfo;
   const { categories, loading, error } = categoryList;
   const dispatch = useDispatch();
   useEffect(() => {
@@ -44,7 +35,6 @@ function App() {
       //
     };
   }, []);
-
   const openSidebar = () => document.querySelector('.sidebar').classList.add('open');
   const closeSidebar = () => document.querySelector('.sidebar').classList.remove('open');
 
@@ -57,9 +47,11 @@ function App() {
             <Link to="/">amazona</Link>
           </div>
           <div>
+            {cartItems.length !== 0 && <div className="badge">{cartItems.length}</div>}
             <Link className="header-link" to="/cart">
               Cart
             </Link>
+
             {userInfo
               ? (
                 <>
@@ -68,14 +60,28 @@ function App() {
                   </Link>
                   {userInfo.isAdmin
                     && (
-                      <Link className="header-link" to="/dashboard">
-                        Dashboard
-                      </Link>
+
+                      <div className="dropdown">
+                        <Link className="header-link" href="#dashboard">
+                          Dashboard
+                        </Link>
+                        <ul className="dropdown-content">
+                          <li>
+                            <Link className="header-link" to="/products">
+                              Products
+                            </Link>
+                          </li>
+                          <li>
+                            <Link className="header-link" to="/orders">
+                              Orders
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
                     )}
                 </>
               )
               : <Link className="header-link" to="/signin"> Sign in </Link>}
-
           </div>
         </header>
         <aside className="sidebar">
@@ -94,26 +100,25 @@ function App() {
                   </li>
                 ) : categories.map((x) => (
                   <li key={x}>
-                    <Link onClick={closeSidebar} to={`/categories/${x}`}>{x}</Link>
+                    <Link onClick={closeSidebar} to={`/category/${x}`}>{x}</Link>
                   </li>
                 ))}
           </ul>
         </aside>
         <main onClick={closeSidebar} className="main">
-          <Route path="/paypal" component={PaypalScreen2} />
-          <Route path="/placeorder" component={PlacceOrderScreen} />
-          <Route path="/payment" component={PaymentScreen} />
-          <Route path="/shipping" component={ShippingScreen} />
+          <PrivateRoute path="/shipping" component={ShippingScreen} />
+          <PrivateRoute path="/payment" component={PaymentScreen} />
+          <PrivateRoute path="/placeorder" component={PlacceOrderScreen} />
+          <PrivateRoute path="/paypal" component={PaypalScreen2} />
           <Route path="/signin" component={SigninScreen} />
-          <Route path="/profile" component={ProfileScreen} />
           <Route path="/register" component={RegisterScreen} />
+          <PrivateRoute path="/profile" component={ProfileScreen} />
           <Route path="/cart/:id?" component={CartScreen} />
           <Route path="/product/:id" component={DetailsScreen} />
-          <Route path="/order/:id" component={OrderDetailsScreen} />
-          <Route path="/categories/:id" component={HomeScreen} />
-          <Route path="/dashboard" component={DashboardScreen} />
-          <Route path="/admin-products" component={AdminProductsScreen} />
-          <Route path="/admin-orders" component={AdminOrdersScreen} />
+          <PrivateRoute path="/order/:id" component={OrderDetailsScreen} />
+          <PrivateRoute path="/products" component={AdminProductsScreen} />
+          <PrivateRoute path="/orders" component={AdminOrdersScreen} />
+          <Route path="/category/:id" component={HomeScreen} />
           <Route path="/" exact component={HomeScreen} />
         </main>
         <footer className="footer">All rights reserved.</footer>

@@ -5,7 +5,7 @@ import { update, logout } from '../actions/userActions';
 import LoadingBox from '../components/LoadingBox';
 import ErrorBox from '../components/ErrorBox';
 import SuccessBox from '../components/SuccessBox';
-import { listOrders } from '../actions/orderActions';
+import { listMyOrders } from '../actions/orderActions';
 
 function ProfileScreen(props) {
   const [name, setName] = useState('');
@@ -17,9 +17,9 @@ function ProfileScreen(props) {
   const { loading, error, success } = userUpdate;
   const { userInfo } = userSignin;
 
-  const orderList = useSelector((state) => state.orderList);
+  const myOrderList = useSelector((state) => state.myOrderList);
 
-  const { loading: loadingOrders, orders, error: errorOrders } = orderList;
+  const { loading: loadingOrders, orders, error: errorOrders } = myOrderList;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,7 +34,7 @@ function ProfileScreen(props) {
       setName(userInfo.name);
       setEmail(userInfo.email);
     }
-    dispath(listOrders());
+    dispath(listMyOrders());
 
     return () => {
       //
@@ -161,13 +161,13 @@ function ProfileScreen(props) {
                             {order.totalPrice}
                           </td>
                           <td>
-                            {order.isPayed}
+                            {order.isPayed.toString()}
                           </td>
                           <td>
-                            {order.isDelivered}
+                            {order.isDelivered.toString()}
                           </td>
                           <td>
-                            <Link to={`/order/${order._id}`}>Details</Link>
+                            <Link to={`/order/${order._id}?ref=/profile`}>Details</Link>
                           </td>
                         </tr>
                       ))}

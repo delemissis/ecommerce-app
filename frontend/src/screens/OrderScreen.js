@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LoadingBox from '../components/LoadingBox';
 import ErrorBox from '../components/ErrorBox';
 import { detailsOrder } from '../actions/orderActions';
 
-function OrderDetailsScreen(props) {
+function OrderScreen(props) {
   const dispatch = useDispatch();
 
   const orderDetails = useSelector((state) => state.orderDetails);
-
   const { loading, error, order } = orderDetails;
-
+  const redirect = props.location.search ? props.location.search.split('=')[1] : '/profile';
   useEffect(() => {
     dispatch(detailsOrder(props.match.params.id));
     return () => {
@@ -23,10 +22,10 @@ function OrderDetailsScreen(props) {
       : (
         <div>
           <div className="back-to-results">
-            <Link to="/profile"> ‹ Back to list</Link>
+            <Link to={redirect}> ‹ Back to list</Link>
             <br />
             <h3>
-            Order
+              Order
               {' '}
               {order._id}
             </h3>
@@ -39,13 +38,13 @@ function OrderDetailsScreen(props) {
                 <h3>Shipping Address</h3>
                 <div>
                   {order.shipping.address}
-              ,
+                  ,
                   {' '}
                   {order.shipping.city}
-              ,
+                  ,
                   {' '}
                   {order.shipping.country}
-              ,
+                  ,
                   {' '}
                   {order.shipping.postalCode}
                 </div>
@@ -70,17 +69,17 @@ function OrderDetailsScreen(props) {
                       </div>
                       <div className="cart-name">
                         <div>
-                          <a href={`/product/${item._id}`}>{item.name}</a>
+                          <Link to={`/product/${item._id}`}>{item.name}</Link>
                         </div>
                         <div className="cart-list-actions">
-                      Qty:
+                          Qty:
                           {' '}
                           {item.qty}
 
                         </div>
                       </div>
                       <div className="order-price">
-                    $
+                        $
                         {item.price}
                       </div>
                     </li>
@@ -96,7 +95,7 @@ function OrderDetailsScreen(props) {
                 <li>
                   <div>Items:</div>
                   <div>
-                $
+                    $
                     {order.itemPrice}
                   </div>
                 </li>
@@ -107,14 +106,14 @@ function OrderDetailsScreen(props) {
                 <li>
                   <div>Tax:</div>
                   <div>
-                $
+                    $
                     {order.taxPrice}
                   </div>
                 </li>
                 <li>
                   <div>Order Total:</div>
                   <div>
-                $
+                    $
                     {order.totalPrice}
 
                   </div>
@@ -126,4 +125,4 @@ function OrderDetailsScreen(props) {
       )
   );
 }
-export default OrderDetailsScreen;
+export default OrderScreen;

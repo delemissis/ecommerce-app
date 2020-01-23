@@ -1,20 +1,21 @@
 import React, { useEffect } from 'react';
 import Cookies from 'js-cookie';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { createOrder } from '../actions/orderActions';
 import { CART_EMPTY_ITEMS } from '../constants/cartConstants';
 
-function PlacceOrderScreen(props) {
+function PlaceOrderScreen(props) {
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
-  const cartCreate = useSelector((state) => state.orderCreate);
+  const orderCreate = useSelector((state) => state.orderCreate);
 
   const { cartItems, shipping, payment } = cart;
   const {
     loading, success, data: order, error,
-  } = cartCreate;
+  } = orderCreate;
   if (!shipping) {
     props.history.push('/shipping');
   }
@@ -74,13 +75,13 @@ function PlacceOrderScreen(props) {
                 <div>Price</div>
               </li>
               {cartItems.map((item) => (
-                <li key={item._id}>
+                <li key={item.product}>
                   <div className="cart-image">
                     <img src={item.image} alt="product" />
                   </div>
                   <div className="cart-name">
                     <div>
-                      <a href={`/product/${item._id}`}>{item.name}</a>
+                      <Link to={`/product/${item.product}`}>{item.name}</Link>
                     </div>
                     <div className="cart-list-actions">
                       Qty:
@@ -141,4 +142,4 @@ function PlacceOrderScreen(props) {
   );
 }
 
-export default PlacceOrderScreen;
+export default PlaceOrderScreen;

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import LoadingBox from '../components/LoadingBox';
 import ErrorBox from '../components/ErrorBox';
 import { listProducts, saveProduct, deleteProduct } from '../actions/productActions';
 
-function AdminProductsScreen() {
+function ProductsScreen() {
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
   const [id, setId] = useState('');
@@ -40,7 +39,7 @@ function AdminProductsScreen() {
 
   const { loading, products, error } = productList;
   const { loading: loadingSave, success: successSave, error: errorSave } = productSave;
-  const { loading: loadingDelete, success: succesDelete, error: errorDelete } = productDelete;
+  const { loading: loadingDelete, success: successDelete, error: errorDelete } = productDelete;
 
   useEffect(() => {
     if (successSave) {
@@ -51,17 +50,11 @@ function AdminProductsScreen() {
     return () => {
       //
     };
-  }, [successSave, succesDelete]);
+  }, [successSave, successDelete]);
   return loading
     ? <LoadingBox /> : error ? <ErrorBox message={error} /> : (
       <div className="content content-margined">
-        <div>
-          <Link to="/dashboard">‹ Back to dashboard</Link>
-          <br />
-          <h3>
-          Products
-          </h3>
-        </div>
+        <h3>Products</h3>
         {modalVisible
           && (
             <div className="modal">
@@ -171,4 +164,4 @@ function AdminProductsScreen() {
       </div>
     );
 }
-export default AdminProductsScreen;
+export default ProductsScreen;

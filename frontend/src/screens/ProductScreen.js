@@ -5,7 +5,7 @@ import LoadingBox from '../components/LoadingBox';
 import ErrorBox from '../components/ErrorBox';
 import { detailsProduct } from '../actions/productActions';
 
-function DetailsScreen(props) {
+function ProductScreen(props) {
   const [qty, setQty] = useState(1);
   const addToCart = () => {
     props.history.push(`/cart/${props.match.params.id}?qty=${qty}`);
@@ -106,4 +106,4 @@ function DetailsScreen(props) {
       )
   );
 }
-export default DetailsScreen;
+export default ProductScreen;
