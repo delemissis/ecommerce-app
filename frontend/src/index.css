@@ -368,7 +368,7 @@ td{
   max-width: 10rem;
   max-height: 10rem;
 }
-.cart-list-container h2 {
+.cart-list-container h2, .cart-list-container h3 {
   margin: 0;
 }
 .cart-list-container > li {
@@ -475,6 +475,9 @@ td{
   padding: 1rem;
   margin: 1rem;
   background-color: #fcfcfc;
+}
+.placeorder-actions > ul > li>div {
+  width: 100%;
 }
 
 /* Profile */

@@ -6,7 +6,7 @@ import { isAuthenticated, isAdmin } from '../util';
 const router = express.Router();
 
 router.get('/', isAuthenticated, isAdmin, asyncHandler(async (req, res) => {
-  const products = await Order.find({ });
+  const products = await Order.find({});
   res.send(products);
 }));
 
@@ -42,6 +42,36 @@ router.post('/', isAuthenticated, asyncHandler(async (req, res) => {
   const newOrder = await product.save();
   res.send({ message: 'Order Created', data: newOrder });
 }));
+router.put('/:id/pay', isAuthenticated, asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id);
+  if (order) {
+    order.payment.paymentResult = {
+      orderID: req.body.orderID,
+      payerID: req.body.payerID,
+      paymentID: req.body.paymentID,
+    };
+    order.isPaid = true;
+    order.paidAt = Date.now();
+
+    const updatedOrder = await order.save();
+    res.send({ message: 'Order Paid', data: updatedOrder });
+  } else {
+    throw Error('Order does not exist.');
+  }
+}));
+router.put('/:id/deliver', isAuthenticated, isAdmin, asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id);
+  if (order) {
+    order.isDelivered = true;
+    order.deliveredAt = Date.now();
+
+    const updatedOrder = await order.save();
+    res.send({ message: 'Order Delivered', data: updatedOrder });
+  } else {
+    throw Error('Order does not exist.');
+  }
+}));
+
 router.put('/:id', isAuthenticated, isAdmin, asyncHandler(async (req, res) => {
   const product = await Order.findById(req.params.id);
   if (product) {

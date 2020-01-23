@@ -3,20 +3,41 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LoadingBox from '../components/LoadingBox';
 import ErrorBox from '../components/ErrorBox';
-import { detailsOrder } from '../actions/orderActions';
+import { detailsOrder, payOrder, deliverOrder } from '../actions/orderActions';
+import PaypalButton from '../components/PaypalButton';
+import { ORDER_PAY_RESET } from '../constants/orderConstants';
 
 function OrderScreen(props) {
   const dispatch = useDispatch();
-
+  const handleCreditCardPayment = () => { alert('To be implemented'); };
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
   const orderDetails = useSelector((state) => state.orderDetails);
   const { loading, error, order } = orderDetails;
+  const orderPay = useSelector((state) => state.orderPay);
+  const { loading: loadingPay, error: errorPay, success: successPay } = orderPay;
+  const orderDeliver = useSelector((state) => state.orderDeliver);
+  const { loading: loadingDeliver, error: errorDeliver, success: successDeliver } = orderDeliver;
+
   const redirect = props.location.search ? props.location.search.split('=')[1] : '/profile';
+
   useEffect(() => {
-    dispatch(detailsOrder(props.match.params.id));
+    if (successPay) {
+      dispatch({ type: ORDER_PAY_RESET });
+      props.history.push('/profile');
+    } else {
+      dispatch(detailsOrder(props.match.params.id));
+    }
     return () => {
       //
     };
-  }, [dispatch]);
+  }, [dispatch, successPay]);
+  const handleSuccessPayment = (paymentResult) => {
+    dispatch(payOrder(order, paymentResult));
+  };
+  const handleDeliverOrder = () => {
+    dispatch(deliverOrder(order));
+  };
   return (
     loading ? <LoadingBox /> : error ? <ErrorBox message={error} />
       : (
@@ -48,18 +69,26 @@ function OrderScreen(props) {
                   {' '}
                   {order.shipping.postalCode}
                 </div>
+                <h3>
+                  {order.isDelivered ? `Delivered At ${order.deliveredAt}` : 'Not Delivered'}
+
+                </h3>
               </div>
               <div>
                 <h3>Payment Method</h3>
                 <div>
                   {order.payment.paymentMethod}
                 </div>
+                <h3>
+
+                  {order.isPaid ? `Paid At ${order.paidAt}` : 'Not Paid'}
+                </h3>
               </div>
               <div>
-                <h3>Order Items</h3>
+
                 <ul className="cart-list-container">
                   <li>
-                    <div />
+                    <h3>Order Items</h3>
                     <div>Price</div>
                   </li>
                   {order.orderItems.map((item) => (
@@ -88,7 +117,37 @@ function OrderScreen(props) {
               </div>
             </div>
             <div className="placeorder-actions">
+
               <ul>
+                {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                  <li>
+
+                    <button onClick={handleDeliverOrder} type="button" className="button primary full-width">
+                      Deliver Order
+                    </button>
+
+                  </li>
+                )}
+
+                {!order.isPaid && order.payment.paymentMethod === 'paypal'
+                  && (
+                    <li>
+                      <PaypalButton
+                        amount="1.00"
+                        onError={() => console.log('error')}
+                        onSuccess={handleSuccessPayment}
+                        onCancel={() => console.log('cancel')}
+                      />
+                    </li>
+                  )}
+                {!order.isPaid && order.payment.paymentMethod === 'creditCart'
+                  && (
+                    <li>
+                      <button onClick={handleCreditCardPayment} type="button" className="button primary full-width">
+                        Pay Now
+                      </button>
+                    </li>
+                  )}
                 <li>
                   <h3>Order Summary</h3>
                 </li>
@@ -119,6 +178,8 @@ function OrderScreen(props) {
                   </div>
                 </li>
               </ul>
+
+
             </div>
           </div>
         </div>

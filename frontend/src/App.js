@@ -10,11 +10,10 @@ import SigninScreen from './screens/SigninScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ShippingScreen from './screens/ShipppingScreen';
 import PaymentScreen from './screens/PaymentScreen';
-import PlacceOrderScreen from './screens/PlaceOrderScreen';
+import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import { listCategories } from './actions/categoryActions';
 import LoadingBox from './components/LoadingBox';
 import ErrorBox from './components/ErrorBox';
-import PaypalScreen2 from './screens/PaypalScreen';
 import AdminProductsScreen from './screens/ProductsScreen';
 import AdminOrdersScreen from './screens/OrdersScreen';
 import PrivateRoute from './components/PrivateRoute';
@@ -62,7 +61,7 @@ function App() {
                     && (
 
                       <div className="dropdown">
-                        <Link className="header-link" href="#dashboard">
+                        <Link className="header-link" to="#dashboard">
                           Dashboard
                         </Link>
                         <ul className="dropdown-content">
@@ -108,8 +107,7 @@ function App() {
         <main onClick={closeSidebar} className="main">
           <PrivateRoute path="/shipping" component={ShippingScreen} />
           <PrivateRoute path="/payment" component={PaymentScreen} />
-          <PrivateRoute path="/placeorder" component={PlacceOrderScreen} />
-          <PrivateRoute path="/paypal" component={PaypalScreen2} />
+          <PrivateRoute path="/placeorder" component={PlaceOrderScreen} />
           <Route path="/signin" component={SigninScreen} />
           <Route path="/register" component={RegisterScreen} />
           <PrivateRoute path="/profile" component={ProfileScreen} />

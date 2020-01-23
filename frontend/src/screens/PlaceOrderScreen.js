@@ -68,10 +68,9 @@ function PlaceOrderScreen(props) {
             </div>
           </div>
           <div>
-            <h3>Order Items</h3>
             <ul className="cart-list-container">
               <li>
-                <div />
+                <h3>Order Items</h3>
                 <div>Price</div>
               </li>
               {cartItems.map((item) => (

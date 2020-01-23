@@ -138,10 +138,10 @@ function ProfileScreen(props) {
                           TOTAL
                         </th>
                         <th>
-                          PAYED?
+                          PAYED
                         </th>
                         <th>
-                          DELIVERED?
+                          DELIVERED
                         </th>
                         <th>
                           ACTION
@@ -161,7 +161,7 @@ function ProfileScreen(props) {
                             {order.totalPrice}
                           </td>
                           <td>
-                            {order.isPayed.toString()}
+                            {order.isPaid.toString()}
                           </td>
                           <td>
                             {order.isDelivered.toString()}

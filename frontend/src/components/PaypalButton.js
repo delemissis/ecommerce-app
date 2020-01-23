@@ -50,7 +50,7 @@ const PaypalButton = (props) => {
     .capture()
     .then((details) => {
       if (props.onSuccess) {
-        props.onSuccess(data);
+        props.onSuccess(data, details);
       }
     })
     .catch((err) => {

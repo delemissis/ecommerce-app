@@ -13,8 +13,17 @@ const addressSchema = {
   postalCode: { type: String, required: true },
   country: { type: String, required: true },
 };
+const paymentResultSchema = {
+  orderID: { type: String },
+  payerID: { type: String },
+  paymentID: { type: String },
+};
 const paymentSchema = {
-  paymentMethod: { type: String, enum: ['paypal', 'creditcard'], required: true }, cardNumber: String, expireDate: String, cvv: String,
+  paymentResult: paymentResultSchema,
+  paymentMethod: { type: String, enum: ['paypal', 'creditcard'], required: true },
+  cardNumber: String,
+  expireDate: String,
+  cvv: String,
 };
 const orderSchema = new Schema({
   user: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
@@ -25,8 +34,10 @@ const orderSchema = new Schema({
   shippingPrice: { type: Number, required: true, min: 0 },
   taxPrice: { type: Number, required: true, min: 0 },
   totalPrice: { type: Number, required: true, min: 0 },
-  isPayed: { type: Boolean, required: true, default: false },
+  isPaid: { type: Boolean, required: true, default: false },
+  paidAt: { type: Date },
   isDelivered: { type: Boolean, required: true, default: false },
+  deliveredAt: { type: Date },
 
 }, { timestamps: true });
 

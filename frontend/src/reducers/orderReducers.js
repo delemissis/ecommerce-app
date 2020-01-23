@@ -5,6 +5,8 @@ import {
   MY_ORDER_LIST_REQUEST, MY_ORDER_LIST_SUCCESS, MY_ORDER_LIST_FAIL,
   ORDER_UPDATE_REQUEST, ORDER_UPDATE_SUCCESS, ORDER_UPDATE_FAIL,
   ORDER_DELETE_REQUEST, ORDER_DELETE_SUCCESS, ORDER_DELETE_FAIL,
+  ORDER_PAY_REQUEST, ORDER_PAY_SUCCESS, ORDER_PAY_FAIL, ORDER_PAY_RESET,
+  ORDER_DELIVER_REQUEST, ORDER_DELIVER_SUCCESS, ORDER_DELIVER_FAIL, ORDER_DELIVER_RESET,
 } from '../constants/orderConstants';
 
 function orderListReducer(state = { orders: [] }, action) {
@@ -31,13 +33,41 @@ function myOrderListReducer(state = { orders: [] }, action) {
   }
 }
 
-function orderSaveReducer(state = {}, action) {
+function orderUpdateReducer(state = {}, action) {
   switch (action.type) {
     case ORDER_UPDATE_REQUEST:
       return { loading: true };
     case ORDER_UPDATE_SUCCESS:
-      return { loading: false, success: true, orders: action.payload };
+      return { loading: false, success: true, data: action.payload };
     case ORDER_UPDATE_FAIL:
+      return { loading: false, error: action.payload };
+    default: return state;
+  }
+}
+
+function orderPayReducer(state = {}, action) {
+  switch (action.type) {
+    case ORDER_PAY_REQUEST:
+      return { loading: true };
+    case ORDER_PAY_RESET:
+      return {};
+    case ORDER_PAY_SUCCESS:
+      return { loading: false, success: true, data: action.payload };
+    case ORDER_PAY_FAIL:
+      return { loading: false, error: action.payload };
+    default: return state;
+  }
+}
+
+function orderDeliverReducer(state = {}, action) {
+  switch (action.type) {
+    case ORDER_DELIVER_REQUEST:
+      return { loading: true };
+    case ORDER_DELIVER_RESET:
+      return {};
+    case ORDER_DELIVER_SUCCESS:
+      return { loading: false, success: true, data: action.payload };
+    case ORDER_DELIVER_FAIL:
       return { loading: false, error: action.payload };
     default: return state;
   }
@@ -69,6 +99,8 @@ function orderCreateReducer(state = { orderItems: [] }, action) {
 
 function orderDetailsReducer(state = {
   order: {
+    isPaid: false,
+    isDelivered: false,
     orderItems: [],
     shipping: {},
     payment: {},
@@ -89,5 +121,5 @@ function orderDetailsReducer(state = {
 
 export {
   orderCreateReducer, orderDetailsReducer, orderListReducer, myOrderListReducer,
-  orderDeleteReducer, orderSaveReducer,
+  orderDeleteReducer, orderUpdateReducer, orderPayReducer, orderDeliverReducer,
 };
