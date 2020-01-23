@@ -40,9 +40,9 @@ app.use('/api/orders', orderRoute);
 app.get('/api/config/paypal', (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
 });
-
+console.log(process.env.NODE_ENV);
 app.use(express.static(path.join(__dirname, '/../frontend/build')));
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+app.use('/uploads', express.static(path.join(__dirname, process.env.NODE_ENV === 'production' ? '/../uploads' : '/uploads')));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(`${__dirname}/../frontend/build/index.html`));
