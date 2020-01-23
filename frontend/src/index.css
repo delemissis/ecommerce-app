@@ -165,7 +165,7 @@ td{
   position: absolute; /* Stay in place */
   z-index: 1; /* Sit on top */
   left: 0;
-  top: 0; 
+  top: 4rem;
   bottom: 0; 
   right:  0; 
   overflow: auto; /* Enable scroll if needed */

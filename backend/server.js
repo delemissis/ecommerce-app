@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import fileUpload from 'express-fileupload';
 import path from 'path';
 import dotenv from 'dotenv';
 import userRoute from './routes/userRoute';
@@ -41,6 +42,7 @@ app.get('/api/config/paypal', (req, res) => {
 });
 
 app.use(express.static(path.join(__dirname, '/../frontend/build')));
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(`${__dirname}/../frontend/build/index.html`));
@@ -51,4 +53,25 @@ app.use((err, req, res, next) => {
   res.status(status);
   res.send({ message: err.message });
 });
+
+// default options
+app.use(fileUpload());
+
+app.post('/upload', (req, res) => {
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send('No files were uploaded.');
+  }
+
+  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+  const { image } = req.files;
+
+  // Use the mv() method to place the file somewhere on your server
+  const filename = `${new Date().getTime()}.jpg`;
+  image.mv(`${__dirname}/uploads/${filename}`, (err) => {
+    if (err) return res.status(500).send(err);
+
+    res.send(`/uploads/${filename}`);
+  });
+});
+
 app.listen(port, () => console.log(`Server serves at http://localhost:${port}`));

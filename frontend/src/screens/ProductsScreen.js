@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 import LoadingBox from '../components/LoadingBox';
 import ErrorBox from '../components/ErrorBox';
 import { listProducts, saveProduct, deleteProduct } from '../actions/productActions';
@@ -23,6 +24,22 @@ function ProductsScreen() {
     setCategory(product.category);
     setCountInStock(product.countInStock);
     setModalVisible(true);
+  };
+  const uploadImageFile = (e) => {
+    const file = e.target.files[0];
+    const bodyFormData = new FormData();
+    bodyFormData.append('image', file);
+    axios.post('/upload', bodyFormData, {
+      headers: {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      },
+    })
+      .then((response) => {
+        setImage(response.data);
+      })
+      .catch((response) => {
+        alert('Upload Error');
+      });
   };
   const deleteHandler = (product) => {
     dispatch(deleteProduct(product));
@@ -80,6 +97,7 @@ function ProductsScreen() {
                       Image
                     </label>
                     <input required name="image" id="image" value={image} onChange={(e) => { setImage(e.target.value); }} />
+                    <input type="file" name="imageFile" onChange={uploadImageFile} />
                   </li>
                   <li>
                     <label htmlFor="name">
