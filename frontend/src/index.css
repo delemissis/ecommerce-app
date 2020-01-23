@@ -162,20 +162,16 @@ td{
 }
 /* Modal */
 .modal{ 
-  position: absolute; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  position: absolute;
+  z-index: 1;
   left: 0;
-  top: 4rem;
-  bottom: 0; 
-  right:  0; 
-  overflow: auto; /* Enable scroll if needed */
-  background-color: #ffffff;
-  margin: 1rem auto; 
-  padding: 1rem;
+  top: 0; 
+  right: 0; 
+  background-color: #ffffff; 
+  flex-direction: column;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
 }
 /* Sidebar */
 .sidebar {
