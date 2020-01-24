@@ -9,7 +9,6 @@ import { ORDER_PAY_RESET } from '../constants/orderConstants';
 
 function OrderScreen(props) {
   const dispatch = useDispatch();
-  const handleCreditCardPayment = () => { alert('To be implemented'); };
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
   const orderDetails = useSelector((state) => state.orderDetails);
@@ -129,7 +128,7 @@ function OrderScreen(props) {
                   </li>
                 )}
 
-                {!order.isPaid && order.payment.paymentMethod === 'paypal'
+                {!order.isPaid
                   && (
                     <li>
                       <PaypalButton
@@ -140,14 +139,7 @@ function OrderScreen(props) {
                       />
                     </li>
                   )}
-                {!order.isPaid && order.payment.paymentMethod === 'creditCart'
-                  && (
-                    <li>
-                      <button onClick={handleCreditCardPayment} type="button" className="button primary full-width">
-                        Pay Now
-                      </button>
-                    </li>
-                  )}
+
                 <li>
                   <h3>Order Summary</h3>
                 </li>

@@ -20,10 +20,7 @@ const paymentResultSchema = {
 };
 const paymentSchema = {
   paymentResult: paymentResultSchema,
-  paymentMethod: { type: String, enum: ['paypal', 'creditcard'], required: true },
-  cardNumber: String,
-  expireDate: String,
-  cvv: String,
+  paymentMethod: { type: String, enum: ['paypal'], required: true },
 };
 const orderSchema = new Schema({
   user: { type: Schema.Types.ObjectId, required: true, ref: 'User' },

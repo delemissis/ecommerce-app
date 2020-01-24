@@ -6,7 +6,7 @@ import { isAuthenticated, isAdmin } from '../util';
 const router = express.Router();
 
 router.get('/', isAuthenticated, isAdmin, asyncHandler(async (req, res) => {
-  const products = await Order.find({});
+  const products = await Order.find({}).populate('user');
   res.send(products);
 }));
 

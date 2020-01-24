@@ -5,14 +5,11 @@ import { savePayment } from '../actions/cartActions';
 
 function PaymentScreen(props) {
   const [paymentMethod, setPaymentMethod] = useState('paypal');
-  const [cardNumber, setCardNumber] = useState('');
-  const [expireDate, setExpireDate] = useState('');
-  const [cvv, setCvv] = useState('');
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(savePayment({
-      paymentMethod, cardNumber, expireDate, cvv,
+      paymentMethod,
     }));
     props.history.push('/placeorder');
   };
@@ -33,53 +30,6 @@ function PaymentScreen(props) {
                 <label htmlFor="paypal">Paypal</label>
               </div>
             </li>
-            <li>
-              <div>
-                <input type="radio" checked={paymentMethod === 'creditcard'} onChange={() => setPaymentMethod('creditcard')} name="paymentMethod" value="creditcard" id="creditcard" />
-                {' '}
-                <label htmlFor="creditcard">Credit Card</label>
-              </div>
-            </li>
-            {paymentMethod === 'creditcard'
-              && (
-                <>
-                  <li>
-                    <label htmlFor="cardNumber">Card Number </label>
-                    <input
-                      type="number"
-                      name="cardNumber"
-                      id="cardNumber"
-                      required
-                      value={cardNumber}
-                      onChange={(e) => setCardNumber(e.target.value)}
-                    />
-                  </li>
-                  <li>
-                    <label htmlFor="expireDate">Expire Date </label>
-                    <input
-                      type="text"
-                      name="expireDate"
-                      id="expireDate"
-                      required
-                      value={expireDate}
-                      onChange={(e) => setExpireDate(e.target.value)}
-                    />
-                  </li>
-
-                  <li>
-                    <label htmlFor="cvv">CVV </label>
-                    <input
-                      type="text"
-                      name="cvv"
-                      id="cvv"
-                      required
-                      value={cvv}
-                      onChange={(e) => setCvv(e.target.value)}
-                    />
-                  </li>
-
-                </>
-              )}
             <li>
               <button
                 type="submit"
