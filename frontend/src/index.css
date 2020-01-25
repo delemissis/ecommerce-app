@@ -571,7 +571,7 @@ td{
 , .filter select, .filter button {
   padding: 0.5rem;
   border-radius: 0.5rem;
-  border: 1px #c0c0c0 solid;
+  border: 1px #c0c0c0 solid; 
 }
 .filter input {
   border-radius: .5rem 0   0 .5rem;
