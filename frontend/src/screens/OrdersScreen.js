@@ -42,6 +42,9 @@ function AdminOrdersScreen() {
                     ID
                   </th>
                   <th>
+                    User
+                  </th>
+                  <th>
                     DATE
                   </th>
                   <th>
@@ -65,6 +68,9 @@ function AdminOrdersScreen() {
                       {order._id}
                     </td>
                     <td>
+                      {order.user.name}
+                    </td>
+                    <td>
                       {order.createdAt}
                     </td>
                     <td>
@@ -77,7 +83,7 @@ function AdminOrdersScreen() {
                       {order.isDelivered.toString()}
                     </td>
                     <td>
-                      <Link to={`/order/${order._id}?ref=/orders`}>Details</Link>
+                      <Link className="button" to={`/order/${order._id}?ref=/orders`}>Details</Link>
                       {' '}
                       <button type="button" onClick={() => deleteHandler(order)} className="button">Delete</button>
 

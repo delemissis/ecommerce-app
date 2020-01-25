@@ -12,8 +12,24 @@ import {
   PRODUCT_DELETE_REQUEST,
   PRODUCT_DELETE_SUCCESS,
   PRODUCT_DELETE_FAIL,
+  PRODUCT_CATEGORY_LIST_REQUEST,
+  PRODUCT_CATEGORY_LIST_SUCCESS,
+  PRODUCT_CATEGORY_LIST_FAIL,
+  PRODUCT_REVIEW_SAVE_REQUEST,
+  PRODUCT_REVIEW_SAVE_SUCCESS,
+  PRODUCT_REVIEW_SAVE_FAIL,
 } from '../constants/productConstants';
 import { getErrorMessage } from '../util';
+
+const listProductCategories = () => async (dispatch) => {
+  dispatch({ type: PRODUCT_CATEGORY_LIST_REQUEST, loading: true });
+  try {
+    const result = await axios.get('/api/products/categories');
+    dispatch({ type: PRODUCT_CATEGORY_LIST_SUCCESS, payload: result.data });
+  } catch (error) {
+    dispatch({ type: PRODUCT_CATEGORY_LIST_FAIL, payload: getErrorMessage(error) });
+  }
+};
 
 const listProducts = (category) => async (dispatch) => {
   dispatch({ type: PRODUCT_LIST_REQUEST, payload: category });
@@ -49,6 +65,21 @@ const saveProduct = (product) => async (dispatch, getState) => {
   }
 };
 
+const saveProductReview = (productId, review) => async (dispatch, getState) => {
+  dispatch({ type: PRODUCT_REVIEW_SAVE_REQUEST, payload: review });
+  try {
+    const { userSignin: { userInfo: { token } } } = getState();
+    const { data: savedReview } = await axios.post(`/api/products/${productId}/reviews`, review, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    dispatch({ type: PRODUCT_REVIEW_SAVE_SUCCESS, payload: savedReview });
+  } catch (error) {
+    dispatch({ type: PRODUCT_REVIEW_SAVE_FAIL, payload: getErrorMessage(error) });
+  }
+};
+
 const deleteProduct = (product) => async (dispatch, getState) => {
   dispatch({ type: PRODUCT_DELETE_REQUEST, payload: product });
   try {
@@ -76,5 +107,5 @@ const detailsProduct = (productId) => async (dispatch) => {
 };
 
 export {
-  listProducts, detailsProduct, saveProduct, deleteProduct,
+  listProducts, detailsProduct, saveProduct, saveProductReview, deleteProduct, listProductCategories,
 };

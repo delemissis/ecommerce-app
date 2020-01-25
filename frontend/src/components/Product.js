@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Rating from './Rating';
 
 const Product = (props) => (
   <li>
@@ -22,11 +23,12 @@ const Product = (props) => (
         {props.price}
       </div>
       <div className="product-rating">
-        {props.rating}
-        {' '}
-        stars (
+        <Rating value={props.rating} />
+        (
         {props.numReviews}
-        )
+        {' '}
+Reviews)
+
       </div>
     </div>
   </li>

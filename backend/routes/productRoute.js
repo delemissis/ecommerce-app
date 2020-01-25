@@ -28,6 +28,7 @@ router.post('/', isAuthenticated, isAdmin, asyncHandler(async (req, res) => {
   const product = new Product({
     name: req.body.name,
     price: req.body.price,
+    description: req.body.description,
     countInStock: req.body.countInStock,
     image: req.body.image,
     category: req.body.category,
@@ -37,10 +38,12 @@ router.post('/', isAuthenticated, isAdmin, asyncHandler(async (req, res) => {
   const newProduct = await product.save();
   res.send({ message: 'Product Created', data: newProduct });
 }));
+
 router.put('/:id', isAuthenticated, isAdmin, asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
   if (product) {
     product.name = req.body.name || product.name;
+    product.description = req.body.description || product.description;
     product.price = req.body.price || product.price;
     product.countInStock = req.body.countInStock || product.countInStock;
     product.image = req.body.image || product.image;
@@ -50,6 +53,21 @@ router.put('/:id', isAuthenticated, isAdmin, asyncHandler(async (req, res) => {
 
     const updatedProduct = await product.save();
     res.send({ message: 'Product Updated', data: updatedProduct });
+  } else {
+    throw Error('Product does not exist.');
+  }
+}));
+router.post('/:id/reviews', isAuthenticated, asyncHandler(async (req, res) => {
+  const product = await Product.findById(req.params.id);
+  if (product) {
+    const review = {
+      rating: req.body.rating, comment: req.body.comment, user: req.user._id, name: req.user.name,
+    };
+    product.reviews.push(review);
+    product.rating = product.reviews.reduce((a, c) => c.rating + a, 0) / product.reviews.length;
+    product.numReviews = product.reviews.length;
+    const updatedProduct = await product.save();
+    res.send({ message: 'Comment Created.', data: updatedProduct.reviews[updatedProduct.reviews.length - 1] });
   } else {
     throw Error('Product does not exist.');
   }

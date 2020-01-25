@@ -9,6 +9,7 @@ body {
 
 input,
 button,
+textarea,
 select {
   font: 1.6rem Helvetica;
 }
@@ -93,7 +94,7 @@ td{
   margin-bottom: 2rem;
 }
 
-.form-container input {
+.form-container input,.form-container textarea,.form-container select, .details-actions select {
   padding: 1rem;
   border-radius: 0.5rem;
   border: 1px #c0c0c0 solid;
@@ -238,7 +239,7 @@ td{
 
 .products > li {
   flex: 0 1 34rem;
-  height: 48rem;
+  height: 50rem;
   margin: 1rem;
   border-bottom: 0.1rem #c0c0c0 solid;
 }
@@ -292,6 +293,9 @@ td{
   padding: 1rem;
   margin: 1rem;
 }
+.details-info h3 {
+  margin-bottom: 0;
+}
 .details-actions {
   flex: 1 1 25rem;
   border: 1px #e0e0e0 solid;
@@ -309,6 +313,9 @@ td{
 .details-info > ul > li,
 .details-actions > ul > li {
   margin-bottom: 1.5rem;
+}
+.details-info > ul > li:first-child{
+  margin-bottom: 0
 }
 
 .price {
@@ -509,4 +516,38 @@ td{
 
 .dropdown:hover .dropdown-content {
   display: block;
+}
+/* Rating */
+.rating-container {
+  display: flex;
+  align-items: center;
+}
+.rating-container > div:last-child{
+  margin-top: .5rem;
+  margin-left: .5rem;
+}
+.rating{
+  margin: .5rem 0;
+}
+.rating > span {
+  display: inline-block;
+  position: relative;
+  font-size: 2.5rem;
+  color: #c0c0c0;
+  line-height: 2rem;
+}
+.rating > span.active:before,
+.rating > span.active ~ span.active:before {
+   content: "\2605";
+   position: absolute;
+   color:#F0C000
+} 
+.review{
+  list-style-type: none;
+  padding: 0;
+}
+.review li {
+  /* border-bottom: .1rem #c0c0c0 solid; */
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
 }

@@ -10,6 +10,7 @@ function ProductsScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   const [id, setId] = useState('');
   const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
   const [brand, setBrand] = useState('');
   const [image, setImage] = useState('');
   const [price, setPrice] = useState(0);
@@ -18,6 +19,7 @@ function ProductsScreen() {
   const showModal = (product) => {
     setId(product._id);
     setName(product.name);
+    setDescription(product.description);
     setBrand(product.brand);
     setImage(product.image);
     setPrice(product.price);
@@ -47,7 +49,7 @@ function ProductsScreen() {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(saveProduct({
-      _id: id, name, brand, image, price, category, countInStock,
+      _id: id, name, brand, image, price, category, countInStock, description,
     }));
   };
   const productList = useSelector((state) => state.productList);
@@ -103,7 +105,7 @@ function ProductsScreen() {
                     <label htmlFor="name">
                       Price
                     </label>
-                    <input required name="price" id="price" value={price} onChange={(e) => { setPrice(e.target.value); }} />
+                    <input required type="number" name="price" id="price" value={price} onChange={(e) => { setPrice(e.target.value); }} />
                   </li>
                   <li>
                     <label htmlFor="category">
@@ -115,7 +117,13 @@ function ProductsScreen() {
                     <label htmlFor="countInStock">
                       Count In Stock
                     </label>
-                    <input required name="countInStock" id="countInStock" value={countInStock} onChange={(e) => { setCountInStock(e.target.value); }} />
+                    <input required type="number" name="countInStock" id="countInStock" value={countInStock} onChange={(e) => { setCountInStock(e.target.value); }} />
+                  </li>
+                  <li>
+                    <label htmlFor="description">
+                      Description
+                    </label>
+                    <textarea required name="description" id="description" value={description} onChange={(e) => { setDescription(e.target.value); }} />
                   </li>
                   <li>
                     <button type="submit" className="button primary">

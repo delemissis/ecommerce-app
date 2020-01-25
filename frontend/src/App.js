@@ -11,7 +11,7 @@ import RegisterScreen from './screens/RegisterScreen';
 import ShippingScreen from './screens/ShipppingScreen';
 import PaymentScreen from './screens/PaymentScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
-import { listCategories } from './actions/categoryActions';
+import { listProductCategories } from './actions/productActions';
 import LoadingBox from './components/LoadingBox';
 import ErrorBox from './components/ErrorBox';
 import AdminProductsScreen from './screens/ProductsScreen';
@@ -20,16 +20,16 @@ import PrivateRoute from './components/PrivateRoute';
 
 
 function App() {
-  const categoryList = useSelector((state) => state.categoryList);
+  const productCategoryList = useSelector((state) => state.productCategoryList);
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
   window.isAuth = !!userInfo;
-  const { categories, loading, error } = categoryList;
+  const { categories, loading, error } = productCategoryList;
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(listCategories());
+    dispatch(listProductCategories());
     return () => {
       //
     };
