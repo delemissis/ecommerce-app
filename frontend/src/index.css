@@ -95,18 +95,11 @@ td{
 }
 
 .form-container input,.form-container textarea,.form-container select, .details-actions select
-, .filter input
-, .filter select, .filter button {
+  {
   padding: 1rem;
   border-radius: 0.5rem;
   border: 1px #c0c0c0 solid;
-}
-.filter input {
-  border-radius: .5rem 0   0 .5rem;
-}
-.filter button {
-  border-radius: 0 .5rem .5rem 0;
-}
+} 
 .form-error {
   flex: 1;
   background-color: #f04040;
@@ -574,3 +567,16 @@ td{
 .filter li{
   margin: 0.2rem;
 } 
+ .filter input
+, .filter select, .filter button {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px #c0c0c0 solid;
+}
+.filter input {
+  border-radius: .5rem 0   0 .5rem;
+  width: 10rem;
+}
+.filter button {
+  border-radius: 0 .5rem .5rem 0;
+}
