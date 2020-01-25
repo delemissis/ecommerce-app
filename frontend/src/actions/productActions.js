@@ -31,10 +31,10 @@ const listProductCategories = () => async (dispatch) => {
   }
 };
 
-const listProducts = (category) => async (dispatch) => {
-  dispatch({ type: PRODUCT_LIST_REQUEST, payload: category });
+const listProducts = (category, searchKeyword, sortOrder) => async (dispatch) => {
+  dispatch({ type: PRODUCT_LIST_REQUEST, payload: { category, searchKeyword, sortOrder } });
   try {
-    const result = await axios(`/api/products${category ? `?category=${category}` : ''}`);
+    const result = await axios(`/api/products?category=${category}&search=${searchKeyword}&sort=${sortOrder}`);
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: result.data });
   } catch (error) {
     dispatch({ type: PRODUCT_LIST_FAIL, payload: getErrorMessage(error) });

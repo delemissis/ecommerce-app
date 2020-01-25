@@ -6,8 +6,19 @@ import { isAuthenticated, isAdmin } from '../util';
 const router = express.Router();
 
 router.get('/', asyncHandler(async (req, res) => {
-  const filter = req.query.category ? { category: req.query.category } : {};
-  const products = await Product.find(filter).sort({ _id: -1 });
+  console.log(req.query.category);
+  console.log(req.query.search);
+  console.log(req.query.sort);
+  const category = req.query.category ? { category: req.query.category } : {};
+  const search = req.query.search ? {
+    name: {
+      $regex: req.query.search,
+      $options: 'i',
+    },
+
+  } : {};
+  const order = req.query.sort ? (req.query.sort === 'lowest' ? { price: 1 } : { price: -1 }) : { _id: -1 };
+  const products = await Product.find({ ...category, ...search }).sort(order);
   res.send(products);
 }));
 
