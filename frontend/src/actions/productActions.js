@@ -31,7 +31,7 @@ const listProductCategories = () => async (dispatch) => {
   }
 };
 
-const listProducts = (category, searchKeyword, sortOrder) => async (dispatch) => {
+const listProducts = (category = '', searchKeyword = '', sortOrder = '') => async (dispatch) => {
   dispatch({ type: PRODUCT_LIST_REQUEST, payload: { category, searchKeyword, sortOrder } });
   try {
     const result = await axios(`/api/products?category=${category}&search=${searchKeyword}&sort=${sortOrder}`);
