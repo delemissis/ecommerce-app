@@ -61,8 +61,8 @@ function App() {
                     && (
 
                       <div className="dropdown">
-                        <Link className="header-link" to="#dashboard">
-                          Dashboard
+                        <Link className="header-link" to="#admin">
+                          Admin
                         </Link>
                         <ul className="dropdown-content">
                           <li>
