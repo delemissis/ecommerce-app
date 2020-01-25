@@ -27,5 +27,6 @@ module.exports = {
     "linebreak-style": 0,
     "import/prefer-default-export": 0,
     "consistent-return": 0,
+    "props.match.params.id": 0
   },
 };

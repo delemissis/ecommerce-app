@@ -19,7 +19,6 @@ function HomeScreen(props) {
   }, [dispatch, category]);
   const searchHandler = (e) => {
     e.preventDefault();
-    console.log(category, searchKeyword, sortOrder);
     dispatch(listProducts(category, searchKeyword, sortOrder));
   };
 

@@ -6,9 +6,6 @@ import { isAuthenticated, isAdmin } from '../util';
 const router = express.Router();
 
 router.get('/', asyncHandler(async (req, res) => {
-  console.log(req.query.category);
-  console.log(req.query.search);
-  console.log(req.query.sort);
   const category = req.query.category ? { category: req.query.category } : {};
   const search = req.query.search ? {
     name: {
