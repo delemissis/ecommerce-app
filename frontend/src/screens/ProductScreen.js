@@ -127,10 +127,7 @@ function ProductScreen(props) {
                       <div>
                         {review.createdAt.substring(0, 10)}
                       </div>
-
                     </div>
-
-
                     <div>
                       {review.comment}
                     </div>
@@ -139,30 +136,45 @@ function ProductScreen(props) {
               }
               <li>
                 <h3>Write a customer reviews</h3>
-                <form onSubmit={submitHandler}>
-                  <ul className="form-container">
-                    <li>
-                      <label htmlFor="rating">Rating</label>
-                      <select required value={rating} name="rating" id="rating" onChange={(e) => setRating(e.target.value)}>
-                        <option value="">Select</option>
-                        <option value="1">1 = Poor</option>
-                        <option value="2">2 = Fair</option>
-                        <option value="3">3 = Good</option>
-                        <option value="4">4 = Very Good</option>
-                        <option value="5">5 = Excellent</option>
-                      </select>
-                    </li>
-                    <li>
-                      <label htmlFor="comment">Comment</label>
 
-                      <textarea required value={comment} name="comment" id="comment" onChange={(e) => setComment(e.target.value)} />
+                {window.isAuth
+                  ? (
+                    <form onSubmit={submitHandler}>
+                      <ul className="form-container">
+                        <li>
+                          <label htmlFor="rating">Rating</label>
+                          <select required value={rating} name="rating" id="rating" onChange={(e) => setRating(e.target.value)}>
+                            <option value="">Select</option>
+                            <option value="1">1 = Poor</option>
+                            <option value="2">2 = Fair</option>
+                            <option value="3">3 = Good</option>
+                            <option value="4">4 = Very Good</option>
+                            <option value="5">5 = Excellent</option>
+                          </select>
+                        </li>
+                        <li>
+                          <label htmlFor="comment">Comment</label>
 
-                    </li>
-                    <li>
-                      <button type="submit" className="button primary">Submit</button>
-                    </li>
-                  </ul>
-                </form>
+                          <textarea required value={comment} name="comment" id="comment" onChange={(e) => setComment(e.target.value)} />
+
+                        </li>
+                        <li>
+                          <button type="submit" className="button primary">Submit</button>
+                        </li>
+                      </ul>
+                    </form>
+                  )
+                  : (
+                    <div>
+Please
+                      {' '}
+                      <Link to="/signin">Signin</Link>
+                      {' '}
+to write a review.
+                    </div>
+
+                  ) }
+
               </li>
             </ul>
           </div>
