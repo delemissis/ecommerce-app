@@ -560,9 +560,10 @@ td{
   display: flex;
   list-style-type: none;
   padding: 0;
-  margin: 1rem 0 ;
-  justify-content: center;
+  margin: 1rem auto;
+  justify-content: space-between;
   align-items: center;
+  max-width: 40rem;
 }
 .filter li{
   margin: 0.2rem;
