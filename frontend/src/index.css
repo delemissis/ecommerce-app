@@ -538,8 +538,7 @@ td{
   color: #c0c0c0;
   line-height: 2rem;
 }
-.rating > span.active:before,
-.rating > span.active ~ span.active:before {
+.rating > span.active:before{
    content: "\2605";
    position: absolute;
    color:#F0C000
@@ -549,7 +548,6 @@ td{
   padding: 0;
 }
 .review li {
-  /* border-bottom: .1rem #c0c0c0 solid; */
   margin-bottom: 1rem;
   padding-bottom: 1rem;
 }

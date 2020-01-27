@@ -96,7 +96,7 @@ function ProductsScreen() {
                   </li>
                   <li>
                     <label htmlFor="image">
-                      Image
+                      Image (680 X 830)
                     </label>
                     <input required name="image" id="image" value={image} onChange={(e) => { setImage(e.target.value); }} />
                     <input type="file" name="imageFile" onChange={uploadImageFile} />

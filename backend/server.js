@@ -40,13 +40,14 @@ app.use('/api/orders', orderRoute);
 app.get('/api/config/paypal', (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
 });
-console.log(process.env.NODE_ENV);
-app.use(express.static(path.join(__dirname, '/../frontend/build')));
-app.use('/uploads', express.static(path.join(__dirname, process.env.NODE_ENV === 'production' ? '/../uploads' : '/uploads')));
+const uploads = path.join(__dirname, '/../uploads');
+app.use('/uploads', express.static(uploads));
 
+app.use(express.static(path.join(__dirname, '/../frontend/build')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(`${__dirname}/../frontend/build/index.html`));
 });
+
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   const status = err.name && err.name === 'ValidationError' ? 400 : 500;
@@ -67,7 +68,7 @@ app.post('/upload', (req, res) => {
 
   // Use the mv() method to place the file somewhere on your server
   const filename = `${new Date().getTime()}.jpg`;
-  image.mv(`${__dirname}/uploads/${filename}`, (err) => {
+  image.mv(`${uploads}/${filename}`, (err) => {
     if (err) return res.status(500).send(err);
 
     res.send(`/uploads/${filename}`);
