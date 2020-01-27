@@ -1,12 +1,22 @@
 import jwt from 'jsonwebtoken';
 import config from './config';
 
+export const getToken = (user) => jwt.sign(
+  {
+    _id: user._id,
+    email: user.email,
+    isAdmin: user.isAdmin,
+    name: user.name,
+  },
+  config.JWT_SECRET,
+  {
+    expiresIn: '48h',
+  },
+);
 export const isAuthenticated = (req, res, next) => {
-  let token = req.headers['x-access-token'] || req.headers.authorization; // Express headers are auto converted to lowercase
-
+  let token = req.headers['x-access-token'] || req.headers.authorization;
   if (token) {
     if (token.startsWith('Bearer ')) {
-      // Remove Bearer from string
       token = token.slice(7, token.length);
     }
     jwt.verify(token, config.JWT_SECRET, (err, decoded) => {
@@ -33,7 +43,7 @@ export const isAdmin = (req, res, next) => {
   } else {
     return res.status(401).send({
       success: false,
-      message: 'Admin persmission has not been granted.',
+      message: 'Admin persmission is not granted.',
     });
   }
 };

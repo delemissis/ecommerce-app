@@ -66,7 +66,7 @@ function SigninScreen(props) {
             />
           </li>
           <li>
-            <button type="submit" className="button primary full-width">Sign in</button>
+            <button type="submit" className="button primary">Sign in</button>
           </li>
           <li>New to Amazona?</li>
           <li>

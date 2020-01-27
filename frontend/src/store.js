@@ -10,32 +10,29 @@ import {
 import { cartReducer } from './reducers/cartRedcuers';
 import {
   orderCreateReducer, orderDetailsReducer, orderListReducer, myOrderListReducer,
-  orderPayReducer,
-  orderUpdateReducer,
-  orderDeleteReducer,
-  orderDeliverReducer,
+  orderPayReducer, orderUpdateReducer, orderDeleteReducer, orderDeliverReducer,
 } from './reducers/orderReducers';
 import { userSigninReducer, userRegisterReducer, userUpdateReducer } from './reducers/userReducers';
 
 const reducers = combineReducers({
   cart: cartReducer,
-  productList: productListReducer,
+  myOrderList: myOrderListReducer,
   orderList: orderListReducer,
   orderUpdate: orderUpdateReducer,
-  productSave: productSaveReducer,
-  productReviewSave: productReviewSaveReducer,
+  orderPay: orderPayReducer,
+  orderDetails: orderDetailsReducer,
   orderCreate: orderCreateReducer,
-  productDelete: productDeleteReducer,
   orderDelete: orderDeleteReducer,
   orderDeliver: orderDeliverReducer,
+  productList: productListReducer,
+  productSave: productSaveReducer,
+  productReviewSave: productReviewSaveReducer,
+  productDelete: productDeleteReducer,
   productCategoryList: productCategoryListReducer,
   productDetails: productDetailsReducer,
-  orderDetails: orderDetailsReducer,
-  myOrderList: myOrderListReducer,
   userSignin: userSigninReducer,
   userRegister: userRegisterReducer,
   userUpdate: userUpdateReducer,
-  orderPay: orderPayReducer,
 });
 const initialState = {
   cart: {

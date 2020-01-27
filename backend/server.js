@@ -7,11 +7,12 @@ import dotenv from 'dotenv';
 import userRoute from './routes/userRoute';
 import productRoute from './routes/productRoute';
 import orderRoute from './routes/orderRoute';
+import config from './config';
 
 dotenv.config();
 
-const mongodbUrl = process.env.MONGODB_URL || 'mongodb://localhost/amazona';
-const port = process.env.PORT || 5000;
+const mongodbUrl = config.MONGODB_URL;
+const port = config.PORT;
 mongoose
   .connect(mongodbUrl, {
     useNewUrlParser: true,
@@ -38,7 +39,7 @@ app.use('/api/users', userRoute);
 app.use('/api/orders', orderRoute);
 
 app.get('/api/config/paypal', (req, res) => {
-  res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
+  res.send(config.PAYPAL_CLIENT_ID);
 });
 const uploads = path.join(__dirname, '/../uploads');
 app.use('/uploads', express.static(uploads));
@@ -55,22 +56,15 @@ app.use((err, req, res, next) => {
   res.send({ message: err.message });
 });
 
-// default options
 app.use(fileUpload());
-
 app.post('/upload', (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send('No files were uploaded.');
   }
-
-  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   const { image } = req.files;
-
-  // Use the mv() method to place the file somewhere on your server
   const filename = `${new Date().getTime()}.jpg`;
   image.mv(`${uploads}/${filename}`, (err) => {
     if (err) return res.status(500).send(err);
-
     res.send(`/uploads/${filename}`);
   });
 });

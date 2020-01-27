@@ -86,7 +86,7 @@ function CartScreen(props) {
           type="button"
           disabled={cartItems.length === 0}
           onClick={proccedToCheckout}
-          className="button primary full-width"
+          className="button primary"
         >
           Proceed to checkout
         </button>

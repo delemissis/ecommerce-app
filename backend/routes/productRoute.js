@@ -14,7 +14,8 @@ router.get('/', asyncHandler(async (req, res) => {
     },
 
   } : {};
-  const order = req.query.sort ? (req.query.sort === 'lowest' ? { price: 1 } : { price: -1 }) : { _id: -1 };
+  const order = req.query.sort ? (req.query.sort === 'lowest'
+    ? { price: 1 } : { price: -1 }) : { _id: -1 };
   const products = await Product.find({ ...category, ...search }).sort(order);
   res.send(products);
 }));

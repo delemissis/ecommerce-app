@@ -121,7 +121,7 @@ function OrderScreen(props) {
                 {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
                   <li>
 
-                    <button onClick={handleDeliverOrder} type="button" className="button primary full-width">
+                    <button onClick={handleDeliverOrder} type="button" className="button primary">
                       Deliver Order
                     </button>
 
