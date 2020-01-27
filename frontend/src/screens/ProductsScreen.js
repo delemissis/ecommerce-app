@@ -73,7 +73,13 @@ function ProductsScreen() {
   return loading
     ? <LoadingBox /> : error ? <ErrorBox message={error} /> : (
       <div className="content content-margined">
-        <h3>Products</h3>
+        <div className="products-header">
+          <h3>Products</h3>
+          <button type="button" className="button primary" onClick={() => showModal({})}>
+            Create Product
+          </button>
+        </div>
+
         {modalVisible
           && (
             <div className="modal">
@@ -139,9 +145,6 @@ function ProductsScreen() {
               </form>
             </div>
           )}
-        <button type="button" className="button" onClick={() => showModal({})}>
-          Create Product
-        </button>
         {products.length === 0 ? (
           <div className="empty-list">
             There is no products.
@@ -152,22 +155,28 @@ function ProductsScreen() {
               <thead>
                 <tr>
                   <th>
-                    Name
+                    ID
                   </th>
                   <th>
-                    Price
+                    NAME
                   </th>
                   <th>
-                    Category
+                    PRICE
                   </th>
                   <th>
-                    Actions
+                    CATEGORY
+                  </th>
+                  <th>
+                    ACTIONS
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {products.map((product) => (
                   <tr key={product._id}>
+                    <td>
+                      {product._id}
+                    </td>
                     <td>
                       {product.name}
                     </td>

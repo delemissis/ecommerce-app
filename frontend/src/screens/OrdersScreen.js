@@ -42,7 +42,7 @@ function AdminOrdersScreen() {
                     ID
                   </th>
                   <th>
-                    User
+                    USER
                   </th>
                   <th>
                     DATE
@@ -51,7 +51,7 @@ function AdminOrdersScreen() {
                     TOTAL
                   </th>
                   <th>
-                    PAYED
+                    PAID
                   </th>
                   <th>
                     DELIVERED

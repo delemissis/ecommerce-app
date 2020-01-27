@@ -138,7 +138,7 @@ function ProfileScreen(props) {
                           TOTAL
                         </th>
                         <th>
-                          PAYED
+                          PAID
                         </th>
                         <th>
                           DELIVERED
