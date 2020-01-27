@@ -107,5 +107,6 @@ const detailsProduct = (productId) => async (dispatch) => {
 };
 
 export {
-  listProducts, detailsProduct, saveProduct, saveProductReview, deleteProduct, listProductCategories,
+  listProducts, detailsProduct, saveProduct,
+  saveProductReview, deleteProduct, listProductCategories,
 };
