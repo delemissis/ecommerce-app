@@ -1,14 +1,12 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
+const PrivateRoute = ({ component: Component, userInfo, ...rest }) => (
   <Route
     {...rest}
-    render={(props) => (
-      window.isAuth === true
-        ? <Component {...props} />
-        : <Redirect to="/signin" />
-    )}
+    render={(props) =>
+      userInfo ? <Component {...props} /> : <Redirect to="/signin" />
+    }
   />
 );
 
