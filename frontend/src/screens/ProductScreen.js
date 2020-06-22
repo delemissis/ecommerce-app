@@ -65,11 +65,15 @@ function ProductScreen(props) {
               <h3>{product.name}</h3>
             </li>
             <li>
-              <Rating value={product.rating} />({product.numReviews} Customer
-              reviews )
+              <a href="#reviews">
+                <Rating
+                  value={product.rating}
+                  text={`${product.numReviews} reviews`}
+                />
+              </a>
             </li>
             <li>
-              Price: <span className="price"> ${product.price}</span>
+              Price: <span className="price">${product.price}</span>
             </li>
 
             <li>
@@ -113,16 +117,16 @@ function ProductScreen(props) {
       <div className="content-margined">
         <h2>Reviews</h2>
         {product.reviews.length === 0 && <div>There is no review.</div>}
-        <ul className="review">
+        <ul id="reviews" className="review">
           {product.reviews.map((review) => (
             <li key={review._id}>
               <div>
                 <b>{review.name}</b>
               </div>
-              <div className="rating-container">
+              <div>
                 <Rating value={review.rating} />
-                <div>{review.createdAt.substring(0, 10)}</div>
               </div>
+              <div>{review.createdAt.substring(0, 10)}</div>
               <div>{review.comment}</div>
             </li>
           ))}

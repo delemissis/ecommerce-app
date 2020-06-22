@@ -2,7 +2,7 @@
 /*********************** GLOBAL *******************************/
 html {
   font-size: 62.5%; /* Default font size: 16px * 62.5% = 10px = 1rem */
-  box-sizing:border-box;
+  box-sizing: border-box;
 }
 body {
   margin: 0;
@@ -25,24 +25,24 @@ a {
 a:hover {
   color: #c04000;
 }
-.block-center{
+.block-center {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
   width: 100%;
 }
-.loading{
+.loading {
   z-index: 10;
 }
 
 .text-center {
   text-align: center;
 }
-.text-error{
+.text-error {
   color: #f04000;
-} 
-.text-success{
+}
+.text-success {
   color: #008000;
 }
 .button {
@@ -59,17 +59,16 @@ a:hover {
 .secondary {
   background: #f0f0f0;
 }
-table{
+table {
   width: 100%;
 }
-th{
+th {
   text-align: left;
 }
-tbody> tr:nth-child(odd){
+tbody > tr:nth-child(odd) {
   background-color: #f0f0f0;
-
 }
-td{
+td {
   padding: 1rem;
 }
 
@@ -94,13 +93,14 @@ td{
   margin-bottom: 2rem;
 }
 
-.form-container input,.form-container textarea,
-.form-container select, .details-actions select
-  {
+.form-container input,
+.form-container textarea,
+.form-container select,
+.details-actions select {
   padding: 1rem;
   border-radius: 0.5rem;
   border: 1px #c0c0c0 solid;
-} 
+}
 .form-error {
   flex: 1;
   background-color: #f04040;
@@ -109,13 +109,13 @@ td{
   padding: 1rem;
   text-align: center;
 }
-.modal { 
+.modal {
   position: absolute;
   z-index: 1;
   left: 0;
-  top: 0; 
-  right: 0; 
-  background-color: #ffffff; 
+  top: 0;
+  right: 0;
+  background-color: #ffffff;
   flex-direction: column;
   display: flex;
   justify-content: center;
@@ -128,9 +128,9 @@ td{
   display: grid;
   height: 100vh;
   grid-template-areas:
-    "header"
-    "main"
-    "footer";
+    'header'
+    'main'
+    'footer';
   grid-template-rows: 5rem 1fr 5rem;
   grid-template-columns: 1fr;
 }
@@ -147,7 +147,7 @@ td{
 .main {
   grid-area: main;
 }
-.content-margined{
+.content-margined {
   margin: 1rem;
 }
 .content > h1 {
@@ -160,7 +160,7 @@ td{
   display: flex;
   justify-content: center;
   align-items: center;
-} 
+}
 .sidebar {
   transition: all 0.2s;
   transform: translateX(-30rem);
@@ -173,28 +173,28 @@ td{
   z-index: 1;
   transform: translateX(0);
 }
-.sidebar-menu-close{
+.sidebar-menu-close {
   border-radius: 50%;
   height: 3rem;
   width: 3rem;
   padding: 0;
   border: 0.1rem solid #000000;
 }
-.categories{
+.categories {
   list-style-type: none;
   padding: 0;
 }
-.categories>li:first-child{
+.categories > li:first-child {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 1rem;
 }
-.categories > li> a{
+.categories > li > a {
   padding: 1rem;
   display: flex;
 }
-.categories > li>a:hover{
+.categories > li > a:hover {
   background-color: #d0d0d0;
 }
 
@@ -212,14 +212,14 @@ td{
   display: none;
   position: absolute;
   right: 0;
-  background-color: #203040;  
+  background-color: #203040;
   z-index: 1;
   margin: 0;
   margin-top: 0.4rem;
   padding: 1rem;
   list-style-type: none;
 }
-.dropdown-content li{
+.dropdown-content li {
   margin-bottom: 1rem;
 }
 .dropdown:hover .dropdown-content {
@@ -244,7 +244,7 @@ td{
 /*******************************************************************/
 /*********************** HOME SCREEN *******************************/
 
-.filter{
+.filter {
   display: flex;
   list-style-type: none;
   padding: 0;
@@ -253,21 +253,22 @@ td{
   align-items: center;
   max-width: 40rem;
 }
-.filter li{
+.filter li {
   margin: 0.2rem;
-} 
- .filter input
-, .filter select, .filter button {
+}
+.filter input,
+.filter select,
+.filter button {
   padding: 0.5rem;
   border-radius: 0.5rem;
-  border: 1px #c0c0c0 solid; 
+  border: 1px #c0c0c0 solid;
 }
 .filter input {
-  border-radius: .5rem 0   0 .5rem;
+  border-radius: 0.5rem 0 0 0.5rem;
   width: 10rem;
 }
 .filter button {
-  border-radius: 0 .5rem .5rem 0;
+  border-radius: 0 0.5rem 0.5rem 0;
 }
 
 .products {
@@ -319,22 +320,23 @@ td{
 /*******************************************************************/
 /*********************** PRODUCT SCREEN *******************************/
 
-.products-header{
+.products-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-top: -1rem;
 }
 
-.details { 
+.details {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
 .back-to-results {
   padding: 1rem;
-}.back-to-results  h3{
+}
+.back-to-results h3 {
   margin-bottom: 0;
 }
 .details-image > img {
@@ -342,10 +344,10 @@ td{
   width: 100%;
 }
 .details-image {
-  flex: 2 1  50rem;
+  flex: 2 1 50rem;
 }
 .details-info {
-  flex: 1 1 25rem;  
+  flex: 1 1 25rem;
   padding: 1rem;
   margin: 1rem;
 }
@@ -368,10 +370,7 @@ td{
 .details-actions > ul > li {
   margin-bottom: 1.5rem;
 }
-.details-info > ul > li:first-child{
-  margin-bottom: 0
-}
-.details-actions > ul > li:last-child{
+.details-actions > ul > li:last-child {
   display: flex;
   flex-direction: column;
 }
@@ -383,40 +382,31 @@ td{
   list-style-type: disc;
   margin-top: 0.5rem;
 }
-
-.review{
+/* Reviews */
+ul.review {
   list-style-type: none;
   padding: 0;
 }
 .review li {
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
+  margin: 1rem;
+  margin-bottom: 2rem;
 }
-
+.review li > div {
+  margin: 0.5rem;
+}
 /* Rating */
-.rating-container {
-  display: flex;
-  align-items: center;
+.rating span {
+  color: #ffb901;
+  font-size: 1.8rem;
+  margin: 0.1rem;
 }
-.rating-container > div:last-child{
-  margin-top: .5rem;
-  margin-left: .5rem;
+.rating span:last-child {
+  color: #444444;
+  font-size: 1.4rem;
 }
-.rating{
-  margin: .5rem 0;
+a > .rating > span:last-child {
+  color: #0000ff;
 }
-.rating > span {
-  display: inline-block;
-  position: relative;
-  font-size: 2.5rem;
-  color: #c0c0c0;
-  line-height: 2rem;
-}
-.rating > span.active:before{
-   content: "\2605";
-   position: absolute;
-   color:#F0C000
-} 
 
 /*******************************************************************/
 /*********************** CART SCREEN *******************************/
@@ -424,7 +414,7 @@ td{
   display: inline-block;
   position: absolute;
   width: 1rem;
-  padding: .3rem;
+  padding: 0.3rem;
   border-radius: 50%;
   font-size: 1rem;
   text-align: center;
@@ -463,7 +453,8 @@ td{
   max-width: 10rem;
   max-height: 10rem;
 }
-.cart-list-container h2, .cart-list-container h3 {
+.cart-list-container h2,
+.cart-list-container h3 {
   margin: 0;
 }
 .cart-list-container > li {
@@ -484,9 +475,9 @@ td{
 .cart-list-actions {
   margin-top: 1rem;
 }
-.cart-list-actions > button{
+.cart-list-actions > button {
   padding: 0.4rem 1rem;
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 }
 .cart-image {
   flex: 1 1;
@@ -560,7 +551,7 @@ td{
   display: flex;
   justify-content: space-between;
 }
-.placeorder-actions > ul > li:first-child { 
+.placeorder-actions > ul > li:first-child {
   display: flex;
   flex-direction: column;
 }
@@ -576,20 +567,19 @@ td{
   margin: 1rem;
   background-color: #fcfcfc;
 }
-.placeorder-actions > ul > li>div {
+.placeorder-actions > ul > li > div {
   width: 100%;
 }
 
 /*******************************************************************/
 /*********************** PROFILE SCREEN *******************************/
-.profile{
+.profile {
   display: flex;
   flex-wrap: wrap;
 }
-.profile-info{
+.profile-info {
   flex: 1 1 30rem;
 }
-.profile-orders{
-  flex: 3 1 60rem
+.profile-orders {
+  flex: 3 1 60rem;
 }
-

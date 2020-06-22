@@ -11,24 +11,12 @@ const Product = (props) => (
         </Link>
       </div>
       <div className="product-name">
-        <Link
-          to={`/product/${props._id}`}
-        >
-          {props.name}
-        </Link>
+        <Link to={`/product/${props._id}`}>{props.name}</Link>
       </div>
       <div className="product-brand">{props.brand}</div>
-      <div className="product-price">
-        $
-        {props.price}
-      </div>
+      <div className="product-price">${props.price}</div>
       <div className="product-rating">
-        <Rating value={props.rating} />
-        (
-        {props.numReviews}
-        {' '}
-Reviews)
-
+        <Rating value={props.rating} text={`${props.numReviews} reviews`} />
       </div>
     </div>
   </li>
