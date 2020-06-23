@@ -19,6 +19,7 @@ function ProductsScreen() {
   const [image, setImage] = useState('');
   const [price, setPrice] = useState(0);
   const [category, setCategory] = useState('');
+  const [uploading, setUploading] = useState(false);
   const [countInStock, setCountInStock] = useState(0);
   const showModal = (product) => {
     setId(product._id);
@@ -35,17 +36,20 @@ function ProductsScreen() {
     const file = e.target.files[0];
     const bodyFormData = new FormData();
     bodyFormData.append('image', file);
+    setUploading(true);
     axios
-      .post('/upload', bodyFormData, {
+      .post('/api/uploads/s3', bodyFormData, {
         headers: {
           headers: { 'Content-Type': 'multipart/form-data' },
         },
       })
       .then((response) => {
         setImage(response.data);
+        setUploading(false);
       })
       .catch((response) => {
-        alert('Upload Error');
+        console.log('Upload Error', response);
+        setUploading(false);
       });
   };
   const deleteHandler = (product) => {
@@ -156,6 +160,7 @@ function ProductsScreen() {
                   name="imageFile"
                   onChange={uploadImageFile}
                 />
+                {uploading && <div>Uploading...</div>}
               </li>
               <li>
                 <label htmlFor="name">Price</label>

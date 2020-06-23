@@ -1,15 +1,13 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import fileUpload from 'express-fileupload';
+// import fileUpload from 'express-fileupload';
 import path from 'path';
-import dotenv from 'dotenv';
+import uploadRoute from './routes/uploadRoute';
 import userRoute from './routes/userRoute';
 import productRoute from './routes/productRoute';
 import orderRoute from './routes/orderRoute';
 import config from './config';
-
-dotenv.config();
 
 const mongodbUrl = config.MONGODB_URL;
 const port = config.PORT;
@@ -27,13 +25,13 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', req.headers.origin);
   res.header(
     'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept',
+    'Origin, X-Requested-With, Content-Type, Accept'
   );
   next();
 });
 app.use(bodyParser.json());
 
-
+app.use('/api/uploads', uploadRoute);
 app.use('/api/products', productRoute);
 app.use('/api/users', userRoute);
 app.use('/api/orders', orderRoute);
@@ -56,7 +54,7 @@ app.use((err, req, res, next) => {
   res.send({ message: err.message });
 });
 
-app.use(fileUpload());
+// app.use(fileUpload());
 app.post('/upload', (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send('No files were uploaded.');
@@ -69,4 +67,6 @@ app.post('/upload', (req, res) => {
   });
 });
 
-app.listen(port, () => console.log(`Server serves at http://localhost:${port}`));
+app.listen(port, () => {
+  console.log(`Server serves at http://localhost:${port}`);
+});

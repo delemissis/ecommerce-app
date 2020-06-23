@@ -137,7 +137,7 @@ function ProductScreen(props) {
               <form onSubmit={submitHandler}>
                 <ul className="form-container">
                   <li>
-                    <label htmlFor="rating">Rating</label>
+                    <label htmlFor="  ">Rating</label>
                     <select
                       required
                       value={rating}
