@@ -26,16 +26,17 @@ aws.config.update({
   secretAccessKey: config.secretAccessKey,
 });
 const s3 = new aws.S3();
+const storageS3 = multerS3({
+  s3,
+  bucket: 'node-react-ecommerce-app',
+  acl: 'public-read',
+  contentType: multerS3.AUTO_CONTENT_TYPE,
+  key(req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
 const uploadS3 = multer({
-  storage: multerS3({
-    s3,
-    bucket: 'node-react-ecommerce-app',
-    acl: 'public-read',
-    contentType: multerS3.AUTO_CONTENT_TYPE,
-    key(req, file, cb) {
-      cb(null, file.originalname);
-    },
-  }),
+  storage: storageS3,
 });
 router.post('/s3', uploadS3.single('image'), (req, res) => {
   res.send(req.file.location);
