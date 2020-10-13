@@ -1,55 +1,63 @@
-import express from 'express';
-import asyncHandler from 'express-async-handler';
-import Order from '../models/orderModel';
-import { isAuthenticated, isAdmin } from '../util';
-
+import express from "express";
+import asyncHandler from "express-async-handler";
+import Order from "../models/orderModel";
+import { isAuthenticated, isAdmin } from "../util";
+import { logging } from "../logging_functions";
+import { request_duration } from "../requests_duration";
 const router = express.Router();
 
 router.get(
-  '/',
+  "/",
   isAuthenticated,
   isAdmin,
   asyncHandler(async (req, res) => {
-    const products = await Order.find({}).populate('user');
+    const products = await Order.find({}).populate("user");
     res.send(products);
   })
 );
 
-router.post('/ddd', (req, res) => {
-  res.send('ok');
-  res.send('new');
+router.post("/ddd", (req, res) => {
+  console.log("post - ddd");
+  res.send("ok");
+  res.send("new");
 });
 
 router.get(
-  '/mine',
+  "/mine",
   isAuthenticated,
   asyncHandler(async (req, res) => {
+    const start = process.hrtime();
+    console.log("get mine order");
     const products = await Order.find({ user: req.user._id });
-    res.send(products);
+    res.status(200).send(products);
+    const mongoObject = logging(req, res);
+    await mongoObject.save();
+    request_duration(start, req, res);
   })
 );
 
 router.get(
-  '/categories',
+  "/categories",
   asyncHandler(async (req, res) => {
-    const categories = await Order.find().distinct('category');
+    console.log("get all categories");
+    const categories = await Order.find().distinct("category");
     res.send(categories);
   })
 );
 
 router.get(
-  '/:id',
+  "/:id",
   asyncHandler(async (req, res) => {
     const product = await Order.findById(req.params.id);
     if (product) {
       res.send(product);
     } else {
-      throw Error('Order not found.');
+      throw Error("Order not found.");
     }
   })
 );
 router.post(
-  '/',
+  "/",
   isAuthenticated,
   asyncHandler(async (req, res) => {
     const product = new Order({
@@ -63,11 +71,11 @@ router.post(
       user: req.user._id,
     });
     const newOrder = await product.save();
-    res.send({ message: 'Order Created', data: newOrder });
+    res.send({ message: "Order Created", data: newOrder });
   })
 );
 router.put(
-  '/:id/pay',
+  "/:id/pay",
   isAuthenticated,
   asyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
@@ -81,14 +89,14 @@ router.put(
       order.paidAt = Date.now();
 
       const updatedOrder = await order.save();
-      res.send({ message: 'Order Paid', data: updatedOrder });
+      res.send({ message: "Order Paid", data: updatedOrder });
     } else {
-      throw Error('Order does not exist.');
+      throw Error("Order does not exist.");
     }
   })
 );
 router.put(
-  '/:id/deliver',
+  "/:id/deliver",
   isAuthenticated,
   isAdmin,
   asyncHandler(async (req, res) => {
@@ -98,15 +106,15 @@ router.put(
       order.deliveredAt = Date.now();
 
       const updatedOrder = await order.save();
-      res.send({ message: 'Order Delivered', data: updatedOrder });
+      res.send({ message: "Order Delivered", data: updatedOrder });
     } else {
-      throw Error('Order does not exist.');
+      throw Error("Order does not exist.");
     }
   })
 );
 
 router.put(
-  '/:id',
+  "/:id",
   isAuthenticated,
   isAdmin,
   asyncHandler(async (req, res) => {
@@ -121,23 +129,23 @@ router.put(
       product.features = req.body.features || product.features;
 
       const updatedOrder = await product.save();
-      res.send({ message: 'Order Updated', data: updatedOrder });
+      res.send({ message: "Order Updated", data: updatedOrder });
     } else {
-      throw Error('Order does not exist.');
+      throw Error("Order does not exist.");
     }
   })
 );
 router.delete(
-  '/:id',
+  "/:id",
   isAuthenticated,
   isAdmin,
   asyncHandler(async (req, res) => {
     const product = await Order.findById(req.params.id);
     if (product) {
       const removeOrder = await product.remove();
-      res.send({ message: 'Order Deleted', data: removeOrder });
+      res.send({ message: "Order Deleted", data: removeOrder });
     } else {
-      throw Error('Order already removed.');
+      throw Error("Order already removed.");
     }
   })
 );

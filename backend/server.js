@@ -9,6 +9,7 @@ import productRoute from "./routes/productRoute";
 import orderRoute from "./routes/orderRoute";
 import config from "./config";
 
+
 const mongodbUrl = config.MONGODB_URL;
 const port = config.PORT;
 mongoose
@@ -18,9 +19,16 @@ mongoose
     useUnifiedTopology: true,
     useFindAndModify: false,
   })
-  .catch((err) => console.log(err.reason));
+  .then(() => {
+    console.log("DataBase Connected!")
+  })
+  .catch((err) => {
+    console.log("Database not connected!")
+  });
 
 const app = express();
+// app.enable("trust proxy");
+app.set("trust proxy", "loopback");
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", req.headers.origin);
   res.header(
@@ -67,6 +75,19 @@ app.post("/upload", (req, res) => {
   });
 });
 
-app.listen(port, () => {
+// app.get("/", function (req, res) {
+//   res.sendFile(path.join(`${__dirname}/../frontend/build/index.html`));
+//   res.status(200).send("Homepage");
+//   console.log("Home Page");
+// });
+
+//The 404 Route (ALWAYS Keep this as the last route)
+// app.get("*", function (req, res) {
+//   // res.sendFile(path.join(`${__dirname}/../frontend/build/index.html`));
+//   res.status(404).send("Wrong Route");
+//   console.log("Wrong Route");
+// });
+
+app.listen(port, "127.0.0.1", () => {
   console.log(`Server serves at http://localhost:${port}`);
 });
