@@ -27,7 +27,6 @@ mongoose
   });
 
 const app = express();
-// app.enable("trust proxy");
 app.set("trust proxy", "loopback");
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", req.headers.origin);
