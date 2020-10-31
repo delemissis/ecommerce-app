@@ -119,7 +119,7 @@ function ProfileScreen(props) {
             <div>
               <h2>Your Orders</h2>
 
-              {orders.length === 0 ? (
+              {typeof orders === 'undefined' || orders.length === 0  ? (
                 <div className="empty-list">
                   There is no orders.
                 </div>

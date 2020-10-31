@@ -87,6 +87,6 @@ app.post("/upload", (req, res) => {
 //   console.log("Wrong Route");
 // });
 
-app.listen(port, "127.0.0.1", () => {
+app.listen(port, "0.0.0.0", () => {
   console.log(`Server serves at http://localhost:${port}`);
 });
