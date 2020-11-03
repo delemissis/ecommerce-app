@@ -81,7 +81,7 @@ function App() {
                 )}
               </>
             ) : (
-              <Link className="header-link" to="/signin">
+              <Link id="signin" className="header-link" to="/signin">
                 {' '}
                 Sign in
               </Link>
