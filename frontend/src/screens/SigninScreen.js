@@ -68,7 +68,7 @@ function SigninScreen(props) {
           <li>
             <button id="submit" type="submit" className="button primary">Sign in</button>
           </li>
-          <li>New to e-commerce?</li>
+          <li>New to Thesis App ?</li>
           <li>
             <Link
             id="createAccount"

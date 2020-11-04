@@ -91,7 +91,7 @@ function RegisterScreen(props) {
             />
           </li>
           <li>
-            <button id="submit" type="submit" className="button primary">Create your Amazona account</button>
+            <button id="submit" type="submit" className="button primary">Create your account</button>
           </li>
 
           <li>
