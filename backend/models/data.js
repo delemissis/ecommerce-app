@@ -25,6 +25,7 @@ const userSchema = new mongoose.Schema(
     resBytesRead: { type: String },
     resBytesWritten: { type: String },
     duration: { type: String },
+    userEmail: { type: String }
   },
   { timestamps: true }
 );

@@ -6,7 +6,7 @@ const router = express.Router();
 
 import { logging } from "../logging_functions.js";
 import { request_duration } from "../requests_duration";
-import AppUser from "../models/user.js";
+// import AppUser from "../models/user.js";
 
 router.put(
   "/:id",
@@ -47,13 +47,16 @@ router.post(
       email: req.body.email,
       password: req.body.password,
     });
+    // console.log("new User : " + newUser)
+
     const newUser = await user.save();
-    if (!newUser) {
+    console.log("new User : " + newUser)
+    if (newUser === "undefined") {
       console.log("REGISTER - ERROR");
       res.status(401).send({ message: "User did not registered" });
-      const mongoObject = logging(req, res);
+      const duration = request_duration(start, req, res);
+      const mongoObject = logging(req, res, duration, newUser.email);
       await mongoObject.save();
-      request_duration(start, req, res);
       // return;
     } else {
       console.log("REGISTER - SUCCESS");
@@ -64,9 +67,9 @@ router.post(
         isAdmin: newUser.isAdmin,
         token: getToken(newUser),
       });
-      const mongoObject = logging(req, res);
+      const duration = request_duration(start, req, res);
+      const mongoObject = logging(req, res, duration, newUser.email);
       await mongoObject.save();
-      request_duration(start, req, res);
     }
   })
 );
@@ -83,9 +86,9 @@ router.post(
     if (!signinUser) {
       console.log("SIGN IN - ERROR");
       const duration = request_duration(start, req, res);
-      console.log("!!!DURATION: " + duration);
       res.status(401).send({ message: "Invalid email or password." });
-      const mongoObject = logging(req, res, duration);
+      const mongoObject = logging(req, res, duration, req.body.email);
+
       await mongoObject.save();
       return;
     } else {
@@ -101,9 +104,10 @@ router.post(
       // const user1 = new AppUser({
       //   user: signinUser.name,
       // });
-      // na vrw tropo na valw to onoma tou user sto db
+      // // na vrw tropo na valw to onoma tou user sto db
       // await user1.save();
-      const mongoObject = logging(req, res, duration);
+      // console.log("userName: " + user1)
+      const mongoObject = logging(req, res, duration, signinUser.email);
       await mongoObject.save();
     }
   })

@@ -10,7 +10,6 @@ export function request_duration(start, req, res) {
   };
 
   res.on("finish", () => {
-    console.log("HEREEEEE!!");
     duration = getDurationInMilliseconds(start);
   });
   return duration;

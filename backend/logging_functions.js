@@ -1,6 +1,6 @@
 import Data from "../backend/models/data";
 
-export function logging(req, res, duration) {
+export function logging(req, res, duration, userEmail) {
   // req object
   console.log("REQUEST OBJECT");
   console.log("Process ID: " + process.pid);
@@ -35,6 +35,7 @@ export function logging(req, res, duration) {
   console.dir("Bytes read: " + res.connection.bytesRead);
   console.dir("Bytes written: " + res.connection.bytesWritten);
   console.dir("Duration: " + JSON.stringify(duration));
+  console.dir("User Email: " + userEmail);
   const mongoObject = new Data({
     baseUrl: req.baseUrl,
     ip: req.ip,
@@ -59,6 +60,7 @@ export function logging(req, res, duration) {
     resByteRead: res.connection.bytesRead,
     resByteWritten: res.connection.bytesWritten,
     duration: duration,
+    userEmail: userEmail
   });
 
   return mongoObject;

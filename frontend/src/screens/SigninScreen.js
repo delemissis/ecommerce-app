@@ -68,9 +68,10 @@ function SigninScreen(props) {
           <li>
             <button id="submit" type="submit" className="button primary">Sign in</button>
           </li>
-          <li>New to Amazona?</li>
+          <li>New to e-commerce?</li>
           <li>
             <Link
+            id="createAccount"
               to={redirect === '/' ? '/register' : `/register?redirect=${redirect}`}
               className="button secondary text-center"
             >
