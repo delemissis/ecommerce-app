@@ -16,12 +16,6 @@ router.get(
   })
 );
 
-router.post("/ddd", (req, res) => {
-  console.log("post - ddd");
-  res.send("ok");
-  res.send("new");
-});
-
 router.get(
   "/mine",
   isAuthenticated,

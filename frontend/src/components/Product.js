@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Rating from './Rating';
 
 const Product = (props) => (
-  <li>
+  <li id={props._id}>
     <div className="product">
       <div className="product-image">
         <Link to={`/product/${props._id}`}>

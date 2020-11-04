@@ -51,7 +51,7 @@ function App() {
             {cartItems.length !== 0 && (
               <div className="badge">{cartItems.length}</div>
             )}
-            <Link className="header-link" to="/cart">
+            <Link id="cart" className="header-link" to="/cart">
               Cart
             </Link>
 
@@ -62,17 +62,17 @@ function App() {
                 </Link>
                 {userInfo.isAdmin && (
                   <div className="dropdown">
-                    <Link className="header-link" to="#admin">
+                    <Link id="admin" className="header-link" to="#admin">
                       Admin
                     </Link>
                     <ul className="dropdown-content">
                       <li>
-                        <Link className="header-link" to="/products">
+                        <Link id="products" className="header-link" to="/products">
                           Products
                         </Link>
                       </li>
                       <li>
-                        <Link className="header-link" to="/orders">
+                        <Link id="orders" className="header-link" to="/orders">
                           Orders
                         </Link>
                       </li>

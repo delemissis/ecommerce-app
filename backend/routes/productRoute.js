@@ -26,7 +26,6 @@ router.get(
       : { _id: -1 };
     const products = await Product.find({ ...category, ...search }).sort(order);
     res.send(products);
-    console.log("get /");
   })
 );
 
