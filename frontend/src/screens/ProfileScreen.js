@@ -66,7 +66,7 @@ function ProfileScreen(props) {
                 </li>
               )}
               <li>
-                <label htmlFor="name">Your name </label>
+                <label htmlFor="name">Name </label>
                 <input
                   type="text"
                   name="name"
@@ -98,10 +98,11 @@ function ProfileScreen(props) {
                 />
               </li>
               <li>
-                <button type="submit" className="button primary">Update Profile</button>
+                <button id="update" type="submit" className="button primary">Update Profile</button>
               </li>
               <li>
                 <button
+                id="logout"
                   onClick={logoutHandler}
                   type="button"
                   className="button secondary text-center"

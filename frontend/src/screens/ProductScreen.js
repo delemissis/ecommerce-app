@@ -91,7 +91,7 @@ function ProductScreen(props) {
             {product.countInStock && (
               <li>
                 Qty:
-                <select value={qty} onChange={(e) => setQty(e.target.value)}>
+                <select id="dropdownCount" value={qty} onChange={(e) => setQty(e.target.value)}>
                   {[...Array(product.countInStock).keys()].map((x) => (
                     <option key={x + 1} value={x + 1}>
                       {x + 1}
@@ -103,6 +103,7 @@ function ProductScreen(props) {
             {product.countInStock && (
               <li>
                 <button
+                id="addToCart"
                   type="button"
                   onClick={addToCart}
                   className="button primary"

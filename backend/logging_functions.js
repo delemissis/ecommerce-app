@@ -1,4 +1,6 @@
 import Data from "../backend/models/data";
+const ipaddr = require('ipaddr.js');
+
 
 export function logging(req, res, duration, userEmail) {
   // req object
@@ -36,13 +38,17 @@ export function logging(req, res, duration, userEmail) {
   console.dir("Bytes written: " + res.connection.bytesWritten);
   console.dir("Duration: " + JSON.stringify(duration));
   console.dir("User Email: " + userEmail);
+
+  const ip1 = ipaddr.parse(req.ip)
+  const ip2 = ip1.toIPv4MappedAddress()
+
   const mongoObject = new Data({
     baseUrl: req.baseUrl,
     ip: req.ip,
     method: req.method,
     cookies: req.cookies,
     hostname: req.hostname,
-    ips: req.ips,
+    ips: ip2,
     protocol: req.protocol,
     signedCookies: req.signedCookies,
     originalUrl: req.originalUrl,

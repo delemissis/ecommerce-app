@@ -11,6 +11,7 @@ function HomeScreen(props) {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [sortOrder, setSortOrder] = useState('');
   const productList = useSelector((state) => state.productList);
+
   useEffect(() => {
     dispatch(listProducts(category, searchKeyword, sortOrder));
     return () => {
@@ -65,9 +66,9 @@ function HomeScreen(props) {
         )
           : (
             <ul className="products">
-              {products.map((product) => (
-                <Product key={product._id} {...product} />
-              ))}
+              {products.map((product, index) => (
+                <Product index={index} key={product._id} {...product} />
+          ))}
             </ul>
           )}
     </div>

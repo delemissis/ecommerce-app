@@ -57,7 +57,7 @@ function App() {
 
             {userInfo ? (
               <>
-                <Link className="header-link" to="/profile">
+                <Link id="profile" className="header-link" to="/profile">
                   {userInfo.name}
                 </Link>
                 {userInfo.isAdmin && (

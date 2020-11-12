@@ -6,7 +6,6 @@ const router = express.Router();
 
 import { logging } from "../logging_functions.js";
 import { request_duration } from "../requests_duration";
-// import AppUser from "../models/user.js";
 
 router.put(
   "/:id",
@@ -47,8 +46,6 @@ router.post(
       email: req.body.email,
       password: req.body.password,
     });
-    // console.log("new User : " + newUser)
-
     const newUser = await user.save();
     console.log("new User : " + newUser)
     if (newUser === "undefined") {
@@ -57,7 +54,6 @@ router.post(
       const duration = request_duration(start, req, res);
       const mongoObject = logging(req, res, duration, newUser.email);
       await mongoObject.save();
-      // return;
     } else {
       console.log("REGISTER - SUCCESS");
       res.status(201).send({
@@ -101,12 +97,6 @@ router.post(
         token: getToken(signinUser),
         message: "Success!",
       });
-      // const user1 = new AppUser({
-      //   user: signinUser.name,
-      // });
-      // // na vrw tropo na valw to onoma tou user sto db
-      // await user1.save();
-      // console.log("userName: " + user1)
       const mongoObject = logging(req, res, duration, signinUser.email);
       await mongoObject.save();
     }
