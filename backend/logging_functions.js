@@ -39,16 +39,32 @@ export function logging(req, res, duration, userEmail) {
   console.dir("Duration: " + JSON.stringify(duration));
   console.dir("User Email: " + userEmail);
 
-  const ip1 = ipaddr.parse(req.ip)
-  const ip2 = ip1.toIPv4MappedAddress()
+  let ip6 = 0
+  let ip4 = 0
+  
+  if (ipaddr.isValid(req.ip)) {
+    var ip = ipaddr.parse(req.ip);
+    if ('ipv6' == ip.kind()) {
+     if (ip.isIPv4MappedAddress()) {
+      ip4 = ip.toIPv4Address().toString();
+     }
+     ip6 = ip.toNormalizedString();
+    } else {
+      console.log("here!")
+     ip4 = ip.toString();
+     console.log(ip4)
+     ip6 = ip.toIPv4MappedAddress().toNormalizedString();
+     console.log(ip6)
+    }
+   }
 
   const mongoObject = new Data({
     baseUrl: req.baseUrl,
-    ip: req.ip,
+    ip: ip4,
     method: req.method,
     cookies: req.cookies,
     hostname: req.hostname,
-    ips: ip2,
+    ips: ip6,
     protocol: req.protocol,
     signedCookies: req.signedCookies,
     originalUrl: req.originalUrl,
