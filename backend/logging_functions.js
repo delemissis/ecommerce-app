@@ -2,7 +2,7 @@ import Data from "../backend/models/data";
 const ipaddr = require('ipaddr.js');
 
 
-export function logging(req, res, duration, userEmail) {
+export function logging(req, res, duration, userEmail, token) {
   // req object
   console.log("REQUEST OBJECT");
   console.log("Process ID: " + process.pid);
@@ -38,10 +38,13 @@ export function logging(req, res, duration, userEmail) {
   console.dir("Bytes written: " + res.connection.bytesWritten);
   console.dir("Duration: " + JSON.stringify(duration));
   console.dir("User Email: " + userEmail);
+  // console.dir("Session alekos: " + req.session.alekos);
+  console.dir("Session id: " + req.session.id);
+
 
   let ip6 = 0
   let ip4 = 0
-  
+
   if (ipaddr.isValid(req.ip)) {
     var ip = ipaddr.parse(req.ip);
     if ('ipv6' == ip.kind()) {
@@ -82,7 +85,8 @@ export function logging(req, res, duration, userEmail) {
     resByteRead: res.connection.bytesRead,
     resByteWritten: res.connection.bytesWritten,
     duration: duration,
-    userEmail: userEmail
+    userEmail: userEmail,
+    sessionID: req.session.id
   });
 
   return mongoObject;

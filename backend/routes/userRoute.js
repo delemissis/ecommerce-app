@@ -73,6 +73,8 @@ router.post(
   "/signin",
   asyncHandler(async (req, res) => {
     console.log("SIGN IN - SERVER");
+    console.log("Session ID from login: " + req.session.id)
+    req.session.alekos = req.session.id;
     const start = process.hrtime();
 
     const signinUser = await User.findOne({

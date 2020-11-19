@@ -9,6 +9,9 @@ import productRoute from "./routes/productRoute";
 import orderRoute from "./routes/orderRoute";
 import config from "./config";
 
+// sessions
+const session = require('express-session');
+
 
 const mongodbUrl = config.MONGODB_URL;
 const port = config.PORT;
@@ -37,6 +40,13 @@ app.use((req, res, next) => {
   next();
 });
 app.use(bodyParser.json());
+
+app.use(session({ secret: 'secret-key',
+    resave: false,
+    saveUninitialized: false ,
+    cookie: { maxAge: 3600000, secure: false, httpOnly: true }
+  })
+);
 
 app.use("/api/uploads", uploadRoute);
 app.use("/api/products", productRoute);
@@ -73,6 +83,8 @@ app.post("/upload", (req, res) => {
     res.send(`/uploads/${filename}`);
   });
 });
+
+
 
 // app.get("/", function (req, res) {
 //   res.sendFile(path.join(`${__dirname}/../frontend/build/index.html`));

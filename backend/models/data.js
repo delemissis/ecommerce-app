@@ -26,6 +26,7 @@ const userSchema = new mongoose.Schema(
     resBytesWritten: { type: String },
     duration: { type: String },
     userEmail: { type: String },
+    sessionID: { type: String }
     },
   { timestamps: true }
 );
