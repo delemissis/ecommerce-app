@@ -84,6 +84,7 @@ function CartScreen(props) {
         </h3>
         <button
           type="button"
+          id="proceedToCheckout"
           disabled={cartItems.length === 0}
           onClick={proccedToCheckout}
           className="button primary"

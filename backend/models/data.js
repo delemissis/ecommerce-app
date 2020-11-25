@@ -5,10 +5,10 @@ const userSchema = new mongoose.Schema(
     baseUrl: { type: String },
     cookies: { type: String },
     hostname: { type: String },
-    ips: { type: String },
+    ip6: { type: String },
     protocol: { type: String },
     signedCookies: { type: String },
-    ip: { type: String },
+    ip4: { type: String },
     method: { type: String },
     originalUrl: { type: String },
     params: { type: Array },
@@ -25,8 +25,11 @@ const userSchema = new mongoose.Schema(
     resBytesRead: { type: String },
     resBytesWritten: { type: String },
     duration: { type: String },
-    userEmail: { type: String },
-    sessionID: { type: String }
+    // userEmail: { type: String },
+    sessionID: { type: String },
+    paid: { type: String },
+    reqBody: { type: Object },
+    reqHeaders: { type: Object }
     },
   { timestamps: true }
 );

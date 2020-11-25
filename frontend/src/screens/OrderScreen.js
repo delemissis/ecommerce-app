@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import LoadingBox from '../components/LoadingBox';
 import ErrorBox from '../components/ErrorBox';
 import { detailsOrder, payOrder, deliverOrder } from '../actions/orderActions';
-import PaypalButton from '../components/PaypalButton';
 import { ORDER_PAY_RESET } from '../constants/orderConstants';
 
 function OrderScreen(props) {
@@ -131,12 +130,15 @@ function OrderScreen(props) {
                 {!order.isPaid
                   && (
                     <li>
-                      <PaypalButton
+                      {/* <PaypalButton
                         amount="1.00"
                         onError={() => console.log('error')}
                         onSuccess={handleSuccessPayment}
                         onCancel={() => console.log('cancel')}
-                      />
+                      /> */}
+                        <button id="pay" onClick={handleSuccessPayment}>
+                          Pay!
+                          </button>
                     </li>
                   )}
 

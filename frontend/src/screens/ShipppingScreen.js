@@ -44,7 +44,7 @@ function ShippingScreen(props) {
                 name="city"
                 id="city"
                 required
-                value={address}
+                value={city}
                 onChange={(e) => setCity(e.target.value)}
               />
             </li>
@@ -73,6 +73,7 @@ function ShippingScreen(props) {
             </li>
             <li>
               <button
+                id="submit"
                 type="submit"
                 className="button primary"
               >

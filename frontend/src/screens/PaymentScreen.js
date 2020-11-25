@@ -12,6 +12,7 @@ function PaymentScreen(props) {
       paymentMethod,
     }));
     props.history.push('/placeorder');
+    console.log("HERE ! !")
   };
 
   return (
@@ -33,6 +34,7 @@ function PaymentScreen(props) {
             <li>
               <button
                 type="submit"
+                id="submit"
                 className="button primary"
               >
                 Continue

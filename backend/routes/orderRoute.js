@@ -6,6 +6,8 @@ import { logging } from "../logging_functions";
 import { request_duration } from "../requests_duration";
 const router = express.Router();
 
+const PaidProbability = [true, true, true, true, false]
+
 router.get(
   "/",
   isAuthenticated,
@@ -72,6 +74,7 @@ router.put(
   "/:id/pay",
   isAuthenticated,
   asyncHandler(async (req, res) => {
+    const start = process.hrtime();
     const order = await Order.findById(req.params.id);
     if (order) {
       order.payment.paymentResult = {
@@ -79,8 +82,16 @@ router.put(
         payerID: req.body.payerID,
         paymentID: req.body.paymentID,
       };
-      order.isPaid = true;
+      let prob = PaidProbability[Math.floor(Math.random() * 5)];
+      console.log("Paid Probability: " + prob);
+      order.isPaid = prob;
       order.paidAt = Date.now();
+
+      const duration = request_duration(start, req, res);
+      console.log("------------")
+      console.log("Paid: " + prob);
+      const mongoObject = logging(req, res, duration, prob);
+      await mongoObject.save();
 
       const updatedOrder = await order.save();
       res.send({ message: "Order Paid", data: updatedOrder });

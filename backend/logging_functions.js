@@ -2,7 +2,7 @@ import Data from "../backend/models/data";
 const ipaddr = require('ipaddr.js');
 
 
-export function logging(req, res, duration, userEmail, token) {
+export function logging(req, res, duration, paid) {
   // req object
   console.log("REQUEST OBJECT");
   console.log("Process ID: " + process.pid);
@@ -28,18 +28,20 @@ export function logging(req, res, duration, userEmail, token) {
   console.dir(req.accepts("json"));
   console.dir("Bytes read: " + req.connection.bytesRead);
   console.dir("Bytes written: " + req.connection.bytesWritten);
+  console.dir("REQUEST HEADERS: " + JSON.stringify(req.headers));
+  console.dir("requests Body: " + JSON.stringify(req.body));
   // res object
   console.log("RESPONSE OBJECT");
   console.log("User signed in");
-  //   console.log(res.header());
   console.log(res.statusCode);
   console.log(res.statusMessage);
   console.dir("Bytes read: " + res.connection.bytesRead);
   console.dir("Bytes written: " + res.connection.bytesWritten);
   console.dir("Duration: " + JSON.stringify(duration));
-  console.dir("User Email: " + userEmail);
-  // console.dir("Session alekos: " + req.session.alekos);
+  // console.dir("User Email: " + userEmail);
   console.dir("Session id: " + req.session.id);
+  console.dir("Order Paid: " + paid);
+
 
 
   let ip6 = 0
@@ -63,11 +65,11 @@ export function logging(req, res, duration, userEmail, token) {
 
   const mongoObject = new Data({
     baseUrl: req.baseUrl,
-    ip: ip4,
+    ip4: ip4,
     method: req.method,
     cookies: req.cookies,
     hostname: req.hostname,
-    ips: ip6,
+    ip6: ip6,
     protocol: req.protocol,
     signedCookies: req.signedCookies,
     originalUrl: req.originalUrl,
@@ -85,8 +87,11 @@ export function logging(req, res, duration, userEmail, token) {
     resByteRead: res.connection.bytesRead,
     resByteWritten: res.connection.bytesWritten,
     duration: duration,
-    userEmail: userEmail,
-    sessionID: req.session.id
+    // userEmail: userEmail,
+    sessionID: req.session.alekos,
+    paid: paid,
+    reqBody: req.body,
+    reqHeaders: req.headers
   });
 
   return mongoObject;

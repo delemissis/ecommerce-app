@@ -7,6 +7,7 @@ import { createOrder } from '../actions/orderActions';
 import { CART_EMPTY_ITEMS } from '../constants/cartConstants';
 
 function PlaceOrderScreen(props) {
+  console.log("general")
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
@@ -17,21 +18,26 @@ function PlaceOrderScreen(props) {
     loading, success, data: order, error,
   } = orderCreate;
   if (!shipping) {
+    console.log("shipping")
     props.history.push('/shipping');
   }
   if (!payment) {
+    console.log("payment")
     props.history.push('/payment');
   }
+  console.log("problemos")
   cart.itemPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
   cart.shippingPrice = cart.itemPrice > 100 ? 0 : 10;
   cart.taxPrice = cart.itemPrice * 0.15;
   cart.totalPrice = cart.itemPrice + cart.shippingPrice + cart.taxPrice;
-
+console.log("total price: " + cart.totalPrice)
   useEffect(() => {
     if (success) {
       props.history.push(`/order/${order._id}`);
       dispatch({ type: CART_EMPTY_ITEMS });
       Cookies.remove('cartItems');
+      console.log("Success Use Effect")
+      console.log("total price !: " + cart.totalPrice)
     }
     return () => {
       //
@@ -39,15 +45,17 @@ function PlaceOrderScreen(props) {
   }, [success]);
 
   const handlePlaceOrder = () => {
-    dispatch(createOrder(cart));
+    console.log("total price !!: " + cart.totalPrice)
+    dispatch(createOrder(cart));  
   };
+  console.log("total pirce ??? " + cart.totalPrice)
   return (
     <div>
       <CheckoutSteps step1 step2 step3 step4 />
       <div className="placeorder">
         <div className="placeorder-info">
           <div>
-            <h3>Shipping Address</h3>
+            <h3>Place Order Shipping Address</h3>
             <div>
               {shipping.address}
               ,
@@ -101,7 +109,7 @@ function PlaceOrderScreen(props) {
         <div className="placeorder-actions">
           <ul>
             <li>
-              <button onClick={handlePlaceOrder} type="button" className="button primary">
+              <button id="placeOrder" onClick={handlePlaceOrder} type="button" className="button primary">
                 Place Order
               </button>
             </li>

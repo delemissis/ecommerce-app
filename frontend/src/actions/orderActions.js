@@ -13,6 +13,7 @@ import { getErrorMessage } from '../util';
 const createOrder = (data) => async (dispatch, getState) => {
   dispatch({ type: ORDER_CREATE_REQUEST });
   try {
+    console.log("Create Order")
     const { userSignin: { userInfo: { token } } } = getState();
     const { data: { data: order } } = await axios.post('/api/orders', data, {
       headers: {
@@ -21,7 +22,22 @@ const createOrder = (data) => async (dispatch, getState) => {
     });
     dispatch({ type: ORDER_CREATE_SUCCESS, payload: order });
   } catch (error) {
-    dispatch({ type: ORDER_CREATE_FAIL, payload: getErrorMessage(error) });
+    if (error.response){
+      //do something
+      console.log(error.response);
+      dispatch({ type: ORDER_CREATE_FAIL, payload: getErrorMessage(error) })
+      }
+      else if(error.request){
+      //do something else
+      console.log(error.request)
+      dispatch({ type: ORDER_CREATE_FAIL, payload: getErrorMessage(error) })
+      }
+      else if(error.message){ 
+      //do something other than the other two
+      console.log(error.message)
+      dispatch({ type: ORDER_CREATE_FAIL, payload: getErrorMessage(error) })
+      }
+    ;
   }
 };
 
@@ -42,6 +58,7 @@ const updateOrder = (order) => async (dispatch, getState) => {
 };
 
 const payOrder = (order, paymentResult) => async (dispatch, getState) => {
+  console.log("Payment Result: " + paymentResult);
   dispatch({ type: ORDER_PAY_REQUEST, payload: paymentResult });
   try {
     const { userSignin: { userInfo: { token } } } = getState();

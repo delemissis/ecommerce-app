@@ -52,7 +52,7 @@ router.post(
       console.log("REGISTER - ERROR");
       res.status(401).send({ message: "User did not registered" });
       const duration = request_duration(start, req, res);
-      const mongoObject = logging(req, res, duration, newUser.email);
+      const mongoObject = logging(req, res, duration);
       await mongoObject.save();
     } else {
       console.log("REGISTER - SUCCESS");
@@ -64,7 +64,7 @@ router.post(
         token: getToken(newUser),
       });
       const duration = request_duration(start, req, res);
-      const mongoObject = logging(req, res, duration, newUser.email);
+      const mongoObject = logging(req, res, duration);
       await mongoObject.save();
     }
   })
@@ -85,7 +85,7 @@ router.post(
       console.log("SIGN IN - ERROR");
       const duration = request_duration(start, req, res);
       res.status(401).send({ message: "Invalid email or password." });
-      const mongoObject = logging(req, res, duration, req.body.email);
+      const mongoObject = logging(req, res, duration);
 
       await mongoObject.save();
       return;
@@ -99,7 +99,7 @@ router.post(
         token: getToken(signinUser),
         message: "Success!",
       });
-      const mongoObject = logging(req, res, duration, signinUser.email);
+      const mongoObject = logging(req, res, duration);
       await mongoObject.save();
     }
   })
