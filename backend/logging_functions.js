@@ -39,8 +39,12 @@ export function logging(req, res, duration, paid) {
   console.dir("Bytes written: " + res.connection.bytesWritten);
   console.dir("Duration: " + JSON.stringify(duration));
   // console.dir("User Email: " + userEmail);
-  console.dir("Session id: " + req.session.id);
+  console.dir("Session id: " + req.session.alekos);
   console.dir("Order Paid: " + paid);
+
+  const timestamp = Math.floor(Date.now() / 1000)
+  console.log("Date Timestamp: " + timestamp)
+  console.log(typeof(timestamp))
 
 
 
@@ -65,33 +69,35 @@ export function logging(req, res, duration, paid) {
 
   const mongoObject = new Data({
     baseUrl: req.baseUrl,
-    ip4: ip4,
+    // ip4: ip4,
     method: req.method,
-    cookies: req.cookies,
-    hostname: req.hostname,
-    ip6: ip6,
-    protocol: req.protocol,
-    signedCookies: req.signedCookies,
-    originalUrl: req.originalUrl,
-    params: req.params,
+    // cookies: req.cookies,
+    // hostname: req.hostname,
+    // ip6: ip6,
+    // protocol: req.protocol,
+    // signedCookies: req.signedCookies,
+    // originalUrl: req.originalUrl,
+    // params: req.params,
     path: req.path,
-    query: req.query,
-    stale: req.stale,
-    subdomains: req.subdomains,
-    xhr: req.xhr,
-    hostHeader: req.headers.host,
-    reqBytesRead: req.connection.bytesRead,
-    reqBytesWritten: req.connection.bytesWritten,
+    // query: req.query,
+    // stale: req.stale,
+    // subdomains: req.subdomains,
+    // xhr: req.xhr,
+    // hostHeader: req.headers.host,
+    // reqBytesRead: req.connection.bytesRead,
+    // reqBytesWritten: req.connection.bytesWritten,
     statusCode: res.statusCode,
-    statusMessage: res.statusMessage,
-    resByteRead: res.connection.bytesRead,
-    resByteWritten: res.connection.bytesWritten,
-    duration: duration,
+    // statusMessage: res.statusMessage,
+    // resByteRead: res.connection.bytesRead,
+    // resByteWritten: res.connection.bytesWritten,
+    // duration: duration,
     // userEmail: userEmail,
-    sessionID: req.session.alekos,
+    // sessionID_alekos: req.session.alekos,
+    sessionID: req.session.id,
     paid: paid,
-    reqBody: req.body,
-    reqHeaders: req.headers
+    // reqBody: req.body,
+    // reqHeaders: req.headers,
+    timestamp: timestamp
   });
 
   return mongoObject;

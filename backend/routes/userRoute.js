@@ -6,6 +6,9 @@ const router = express.Router();
 
 import { logging } from "../logging_functions.js";
 import { request_duration } from "../requests_duration";
+let firstTime = true;
+let session = 0;
+
 
 router.put(
   "/:id",
@@ -74,7 +77,6 @@ router.post(
   asyncHandler(async (req, res) => {
     console.log("SIGN IN - SERVER");
     console.log("Session ID from login: " + req.session.id)
-    req.session.alekos = req.session.id;
     const start = process.hrtime();
 
     const signinUser = await User.findOne({
@@ -83,6 +85,12 @@ router.post(
     });
     if (!signinUser) {
       console.log("SIGN IN - ERROR");
+      if(firstTime == true) {
+        req.session.alekos = req.session.id;
+        console.log("Error and first time")
+        firstTime = false;
+      }
+      console.log("Error and NOT first time")
       const duration = request_duration(start, req, res);
       res.status(401).send({ message: "Invalid email or password." });
       const mongoObject = logging(req, res, duration);
@@ -91,6 +99,17 @@ router.post(
       return;
     } else {
       const duration = request_duration(start, req, res);
+      if (firstTime == false){
+        console.log("Sucess and NOT first time")
+        const mongoObject = logging(req, res, duration);
+        await mongoObject.save();
+      } else {
+        console.log("Sucess and first time")
+        req.session.alekos = req.session.id;
+        console.log("req.session.alekos: " + req.session.alekos);
+        const mongoObject = logging(req, res, duration);
+        await mongoObject.save();
+      } 
       res.status(200).send({
         _id: signinUser._id,
         name: signinUser.name,
@@ -98,9 +117,7 @@ router.post(
         isAdmin: signinUser.isAdmin,
         token: getToken(signinUser),
         message: "Success!",
-      });
-      const mongoObject = logging(req, res, duration);
-      await mongoObject.save();
+      });     
     }
   })
 );

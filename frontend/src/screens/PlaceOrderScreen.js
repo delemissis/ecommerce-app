@@ -45,7 +45,6 @@ console.log("total price: " + cart.totalPrice)
   }, [success]);
 
   const handlePlaceOrder = () => {
-    console.log("total price !!: " + cart.totalPrice)
     dispatch(createOrder(cart));  
   };
   console.log("total pirce ??? " + cart.totalPrice)

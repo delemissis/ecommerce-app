@@ -11,7 +11,7 @@ import config from "./config";
 
 // sessions
 const session = require('express-session');
-
+const mongoStore = require('connect-mongo')(session);
 
 const mongodbUrl = config.MONGODB_URL;
 const port = config.PORT;
@@ -47,6 +47,16 @@ app.use(session({ secret: 'secret-key',
     cookie: { maxAge: 3600000, secure: false, httpOnly: true }
   })
 );
+
+// app.use(session({
+//   resave: false,
+//   saveUninitialized: false,
+//   secret: 'secret',
+//   store: new mongoStore({
+//     mongooseConnection: mongoose.connection,
+//     collection: 'sessions'
+//   })
+// }));
 
 app.use("/api/uploads", uploadRoute);
 app.use("/api/products", productRoute);

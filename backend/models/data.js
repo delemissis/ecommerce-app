@@ -26,10 +26,13 @@ const userSchema = new mongoose.Schema(
     resBytesWritten: { type: String },
     duration: { type: String },
     // userEmail: { type: String },
+    sessionID_alekos: { type: String },
     sessionID: { type: String },
+    session: { type: String },
     paid: { type: String },
     reqBody: { type: Object },
-    reqHeaders: { type: Object }
+    reqHeaders: { type: Object },
+    timestamp: { type: Number }
     },
   { timestamps: true }
 );

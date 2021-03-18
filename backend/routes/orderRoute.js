@@ -88,8 +88,6 @@ router.put(
       order.paidAt = Date.now();
 
       const duration = request_duration(start, req, res);
-      console.log("------------")
-      console.log("Paid: " + prob);
       const mongoObject = logging(req, res, duration, prob);
       await mongoObject.save();
 
